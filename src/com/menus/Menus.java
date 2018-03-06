@@ -7,8 +7,8 @@ public class Menus extends javax.swing.JFrame {
      */
     public Menus() {
         initComponents();
-        jPanel1.setVisible(false);
-        jPanel2.setVisible(false);
+        jPTraductor.setVisible(false);
+        jPComunes.setVisible(false);
         jPanel3.setVisible(false);
     }
 
@@ -21,10 +21,16 @@ public class Menus extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPTraductor = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTArea2 = new javax.swing.JTextArea();
+        jBtn_traducir = new javax.swing.JButton();
+        jPComunes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -35,19 +41,59 @@ public class Menus extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPTraductor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Traductor");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, -1, -1));
+        jTArea1.setColumns(20);
+        jTArea1.setRows(5);
+        jScrollPane1.setViewportView(jTArea1);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        jPTraductor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, 120));
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTArea2.setColumns(20);
+        jTArea2.setRows(5);
+        jScrollPane2.setViewportView(jTArea2);
+
+        jPTraductor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 120));
+
+        jBtn_traducir.setText("Traducir");
+        jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+
+        getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+
+        jPComunes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Comunes");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jPComunes.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        jPComunes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 300));
+
+        getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -89,25 +135,25 @@ public class Menus extends javax.swing.JFrame {
 
     private void jMTraductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTraductorMouseClicked
         jMAdmin.removeAll();
-        jPanel1.setVisible(true);
-        jPanel2.setVisible(false);
+        jPTraductor.setVisible(true);
+        jPComunes.setVisible(false);
         jPanel3.setVisible(false);
-        System.out.println(jPanel1.getName());
-         System.out.println(jPanel1.getUIClassID());
+        System.out.println(jPTraductor.getName());
+         System.out.println(jPTraductor.getUIClassID());
     }//GEN-LAST:event_jMTraductorMouseClicked
 
     private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
         jMAdmin.removeAll();
-        jPanel2.setVisible(true);
-        jPanel1.setVisible(false);
+        jPComunes.setVisible(true);
+        jPTraductor.setVisible(false);
         jPanel3.setVisible(false);
     }//GEN-LAST:event_jMComunesMouseClicked
 
     private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
         jMAdmin.removeAll();
         jPanel3.setVisible(true);
-        jPanel1.setVisible(false);
-        jPanel2.setVisible(false);
+        jPTraductor.setVisible(false);
+        jPComunes.setVisible(false);
     }//GEN-LAST:event_jMAdminMouseClicked
 
     /**
@@ -146,15 +192,21 @@ public class Menus extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jBtn_traducir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     public javax.swing.JMenu jMAdmin;
     private javax.swing.JMenu jMComunes;
     private javax.swing.JMenu jMTraductor;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPComunes;
+    private javax.swing.JPanel jPTraductor;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTArea1;
+    private javax.swing.JTextArea jTArea2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
