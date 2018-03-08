@@ -1,15 +1,20 @@
 package com.menus;
 
+import com.metodos.*;
+
 public class Menus extends javax.swing.JFrame {
+
+    Visual objVis = new Visual();
+    Metodos objMet =new Metodos();
 
     /**
      * Creates new form Menus
      */
     public Menus() {
         initComponents();
-        jPTraductor.setVisible(false);
+        jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
-        jPanel3.setVisible(false);
+        jPAdmin.setVisible(false);
     }
 
     /**
@@ -23,17 +28,17 @@ public class Menus extends javax.swing.JFrame {
 
         jPTraductor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTArea1 = new javax.swing.JTextArea();
+        jTAreaTraducido = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTArea2 = new javax.swing.JTextArea();
+        jTTraducir = new javax.swing.JTextArea();
         jBtn_traducir = new javax.swing.JButton();
         jPComunes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jPAdmin = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
         jMAdmin = new javax.swing.JMenu();
@@ -41,25 +46,32 @@ public class Menus extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPTraductor.setName("jPTraductor"); // NOI18N
         jPTraductor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTArea1.setColumns(20);
-        jTArea1.setRows(5);
-        jScrollPane1.setViewportView(jTArea1);
+        jTAreaTraducido.setColumns(20);
+        jTAreaTraducido.setRows(5);
+        jScrollPane1.setViewportView(jTAreaTraducido);
 
         jPTraductor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, 120));
 
-        jTArea2.setColumns(20);
-        jTArea2.setRows(5);
-        jScrollPane2.setViewportView(jTArea2);
+        jTTraducir.setColumns(20);
+        jTTraducir.setRows(5);
+        jScrollPane2.setViewportView(jTTraducir);
 
         jPTraductor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 120));
 
         jBtn_traducir.setText("Traducir");
+        jBtn_traducir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_traducirActionPerformed(evt);
+            }
+        });
         jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
 
         getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
+        jPComunes.setName("jPComunes"); // NOI18N
         jPComunes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Comunes");
@@ -95,12 +107,13 @@ public class Menus extends javax.swing.JFrame {
 
         getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPAdmin.setName("jPAdmin"); // NOI18N
+        jPAdmin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("Admin");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 110, 110, 90));
+        jPAdmin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 110, 110, 90));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        getContentPane().add(jPAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
         jMTraductor.setText("Traductor");
         jMTraductor.setName("Btn_Traductor"); // NOI18N
@@ -109,7 +122,7 @@ public class Menus extends javax.swing.JFrame {
                 jMTraductorMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMTraductor);
+        jMenus.add(jMTraductor);
 
         jMComunes.setText("Comunes");
         jMComunes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,7 +130,7 @@ public class Menus extends javax.swing.JFrame {
                 jMComunesMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMComunes);
+        jMenus.add(jMComunes);
 
         jMAdmin.setText("Admin");
         jMAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,36 +138,37 @@ public class Menus extends javax.swing.JFrame {
                 jMAdminMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMAdmin);
+        jMenus.add(jMAdmin);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenus);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMTraductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTraductorMouseClicked
-        jMAdmin.removeAll();
-        jPTraductor.setVisible(true);
-        jPComunes.setVisible(false);
-        jPanel3.setVisible(false);
-        System.out.println(jPTraductor.getName());
-         System.out.println(jPTraductor.getUIClassID());
+        // Limpia el Panel
+        jMTraductor.removeAll();
+        objVis.verPanelesMenus(jPTraductor.getName());
+
     }//GEN-LAST:event_jMTraductorMouseClicked
 
     private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
-        jMAdmin.removeAll();
-        jPComunes.setVisible(true);
-        jPTraductor.setVisible(false);
-        jPanel3.setVisible(false);
+        jMComunes.removeAll();
+        objVis.verPanelesMenus(jPComunes.getName());
     }//GEN-LAST:event_jMComunesMouseClicked
 
     private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
         jMAdmin.removeAll();
-        jPanel3.setVisible(true);
-        jPTraductor.setVisible(false);
-        jPComunes.setVisible(false);
+        objVis.verPanelesMenus(jPAdmin.getName());
     }//GEN-LAST:event_jMAdminMouseClicked
+
+    private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
+       
+       jTTraducir.getText();
+       jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText()));
+       
+    }//GEN-LAST:event_jBtn_traducirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,15 +212,15 @@ public class Menus extends javax.swing.JFrame {
     public javax.swing.JMenu jMAdmin;
     private javax.swing.JMenu jMComunes;
     private javax.swing.JMenu jMTraductor;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPComunes;
-    private javax.swing.JPanel jPTraductor;
-    private javax.swing.JPanel jPanel3;
+    public static javax.swing.JMenuBar jMenus;
+    public static javax.swing.JPanel jPAdmin;
+    public static javax.swing.JPanel jPComunes;
+    public static javax.swing.JPanel jPTraductor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTArea1;
-    private javax.swing.JTextArea jTArea2;
+    private javax.swing.JTextArea jTAreaTraducido;
+    private javax.swing.JTextArea jTTraducir;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
