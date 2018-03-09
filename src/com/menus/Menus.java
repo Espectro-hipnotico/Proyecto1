@@ -32,6 +32,7 @@ public class Menus extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTTraducir = new javax.swing.JTextArea();
         jBtn_traducir = new javax.swing.JButton();
+        jTBInvertir = new javax.swing.JToggleButton();
         jPComunes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -68,6 +69,14 @@ public class Menus extends javax.swing.JFrame {
             }
         });
         jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+
+        jTBInvertir.setText("Invertir");
+        jTBInvertir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTBInvertirActionPerformed(evt);
+            }
+        });
+        jPTraductor.add(jTBInvertir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
@@ -170,6 +179,11 @@ public class Menus extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jBtn_traducirActionPerformed
 
+    private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
+       
+       
+    }//GEN-LAST:event_jTBInvertirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +234,7 @@ public class Menus extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTAreaTraducido;
+    private javax.swing.JToggleButton jTBInvertir;
     private javax.swing.JTextArea jTTraducir;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
