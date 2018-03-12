@@ -5,7 +5,10 @@ import com.metodos.*;
 public class Menus extends javax.swing.JFrame {
 
     Visual objVis = new Visual();
-    Metodos objMet =new Metodos();
+    Metodos objMet = new Metodos();
+
+    // Variable para saber si invertir está seleccionada
+    Boolean vInvertir = false;
 
     /**
      * Creates new form Menus
@@ -15,6 +18,7 @@ public class Menus extends javax.swing.JFrame {
         jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
         jPAdmin.setVisible(false);
+
     }
 
     /**
@@ -36,13 +40,15 @@ public class Menus extends javax.swing.JFrame {
         jPComunes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jPAdmin = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
         jMAdmin = new javax.swing.JMenu();
+        jMI1 = new javax.swing.JMenuItem();
+        jMI2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -50,6 +56,7 @@ public class Menus extends javax.swing.JFrame {
         jPTraductor.setName("jPTraductor"); // NOI18N
         jPTraductor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTAreaTraducido.setEditable(false);
         jTAreaTraducido.setColumns(20);
         jTAreaTraducido.setRows(5);
         jScrollPane1.setViewportView(jTAreaTraducido);
@@ -86,7 +93,7 @@ public class Menus extends javax.swing.JFrame {
         jLabel2.setText("Comunes");
         jPComunes.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -107,10 +114,18 @@ public class Menus extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Palabra", "Morse"
             }
-        ));
-        jScrollPane3.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable);
 
         jPComunes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 300));
 
@@ -147,6 +162,18 @@ public class Menus extends javax.swing.JFrame {
                 jMAdminMouseClicked(evt);
             }
         });
+
+        jMI1.setText("Configuración");
+        jMI1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMI1ActionPerformed(evt);
+            }
+        });
+        jMAdmin.add(jMI1);
+
+        jMI2.setText("Insertar idioma");
+        jMAdmin.add(jMI2);
+
         jMenus.add(jMAdmin);
 
         setJMenuBar(jMenus);
@@ -157,32 +184,40 @@ public class Menus extends javax.swing.JFrame {
 
     private void jMTraductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTraductorMouseClicked
         // Limpia el Panel
-        jMTraductor.removeAll();
+        //jMTraductor.removeAll();
+        objMet.limpiar();
         objVis.verPanelesMenus(jPTraductor.getName());
 
     }//GEN-LAST:event_jMTraductorMouseClicked
 
     private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
-        jMComunes.removeAll();
+        
+        objMet.limpiar();
         objVis.verPanelesMenus(jPComunes.getName());
     }//GEN-LAST:event_jMComunesMouseClicked
 
     private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
-        jMAdmin.removeAll();
+       
+        objMet.limpiar();
         objVis.verPanelesMenus(jPAdmin.getName());
+        
     }//GEN-LAST:event_jMAdminMouseClicked
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
-       
-       jTTraducir.getText();
-       jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText()));
-       
+
+        jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
+
     }//GEN-LAST:event_jBtn_traducirActionPerformed
 
     private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
-       
-       
+        objMet.limpiar();
+
+        vInvertir = jTBInvertir.isSelected();
     }//GEN-LAST:event_jTBInvertirActionPerformed
+
+    private void jMI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMI1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +260,8 @@ public class Menus extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     public javax.swing.JMenu jMAdmin;
     private javax.swing.JMenu jMComunes;
+    private javax.swing.JMenuItem jMI1;
+    private javax.swing.JMenuItem jMI2;
     private javax.swing.JMenu jMTraductor;
     public static javax.swing.JMenuBar jMenus;
     public static javax.swing.JPanel jPAdmin;
@@ -233,9 +270,9 @@ public class Menus extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTAreaTraducido;
+    public static javax.swing.JTextArea jTAreaTraducido;
     private javax.swing.JToggleButton jTBInvertir;
-    private javax.swing.JTextArea jTTraducir;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTextArea jTTraducir;
+    public static javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }

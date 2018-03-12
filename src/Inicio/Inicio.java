@@ -19,6 +19,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         objAcces.leerFichero();
         jPassInicio.setVisible(false);
+        met.llenarTabla();
     }
 
     /**

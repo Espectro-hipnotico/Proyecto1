@@ -21,7 +21,8 @@ public class Morse {
 
     @Override
     public String toString() {
-        return  "letra=" + letra + ", codigo=" + codigo;
+        return  "letra: " + letra + " codigo: " + codigo;
+        
     }
     
     

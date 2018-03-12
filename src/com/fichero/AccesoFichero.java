@@ -9,12 +9,17 @@ import java.util.Scanner;
 public class AccesoFichero {
 
     FileWriter fw;
-    public static  ArrayList<String> lPassword = new ArrayList();
-    public static  ArrayList<Morse> lMorse = new ArrayList();
+    public static ArrayList<String> lPassword = new ArrayList();
+    public static ArrayList<Morse> lMorse = new ArrayList();
+    public static ArrayList<Palabras_Comunes> lPComunes = new ArrayList();
     // objeto Morse
     Morse objM;
     // Array String
     String[] ArrayMorse;
+    // objeto Palabras_Comunes
+    Palabras_Comunes objPC;
+    // Array String
+    String[] ArrayPC;
 
     public void leerFichero() {
 
@@ -38,13 +43,21 @@ public class AccesoFichero {
             }
 
             scM.close();
+
+            Scanner scP = new Scanner(new File("src/BaseDatos/palabras.txt"));
+            while (scP.hasNextLine()) {
+                ArrayPC = scP.nextLine().split("\\|");
+                objPC = new Palabras_Comunes(ArrayPC[0], ArrayPC[1]);
+                lPComunes.add(objPC);
+            }
+
+            scP.close();
+
         } catch (FileNotFoundException ex) {
             System.out.println("Erro2" + ex.getMessage());
         }
 
     }
-
-  
 
 //    public void escribirFichero() {
 //
