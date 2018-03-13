@@ -1,8 +1,10 @@
 package com.metodos;
 
 import static com.menus.Menus.*;
+import java.awt.Color;
+
 import java.awt.Font;
-import javax.swing.JTextArea;
+import javax.swing.JColorChooser;
 
 public class Visual {
 
@@ -29,10 +31,59 @@ public class Visual {
 
     }
 
-    public void cambiarTamaño() {
-        
-        JTextArea jta=new JTextArea();
-       // jta.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
+    public void cambiarTamaño(String f, Integer size) {
+
+        jPrueba.setFont(new Font(f, Font.PLAIN, size));
+
+        jTTraducir.setFont(new Font(f, Font.PLAIN, size));
+        jTAreaTraducido.setFont(new Font(f, Font.PLAIN, size));
+        jBtn_traducir.setFont(new Font(f, Font.PLAIN, size));
+        jTBInvertir.setFont(new Font(f, Font.PLAIN, size));
+        jMTraductor.setFont(new Font(f, Font.PLAIN, size));
+        jMComunes.setFont(new Font(f, Font.PLAIN, size));
+        jMAdmin.setFont(new Font(f, Font.PLAIN, size));
+        jMIConfig.setFont(new Font(f, Font.PLAIN, size));
+        jMIdioma.setFont(new Font(f, Font.PLAIN, size));
+    }
+
+    public void cambiarColorFondo(Color c) {
+
+        jConfig.setBackground(c);
+        jPComunes.setBackground(c);
+        jPTraductor.setBackground(c);
+    }
+
+    public void cambiarColorBotones(Color c) {
+
+        jBColorF.setBackground(c);
+        jBColorB.setBackground(c);
+        jBtn_traducir.setBackground(c);
+        jTBInvertir.setBackground(c);
+
+    }
+
+    public void cambiarColorLetras(Color c) {
+        jPrueba.setForeground(c);
+
+        jTTraducir.setForeground(c);
+        jTAreaTraducido.setForeground(c);
+        jBtn_traducir.setForeground(c);
+        jTBInvertir.setForeground(c);
+        jMTraductor.setForeground(c);
+        jMComunes.setForeground(c);
+        jMAdmin.setForeground(c);
+        jMIConfig.setForeground(c);
+        jMIdioma.setForeground(c);
+
+        jConfig.setForeground(c);
+        jPComunes.setForeground(c);
+        jPTraductor.setForeground(c);
+
+        jBColorF.setForeground(c);
+        jBColorB.setForeground(c);
+        jBColorL.setForeground(c);
+        jBtn_traducir.setForeground(c);
+        jTBInvertir.setForeground(c);
 
     }
 
