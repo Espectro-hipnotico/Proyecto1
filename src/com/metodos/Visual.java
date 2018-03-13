@@ -57,6 +57,7 @@ public class Visual {
 
         jBColorF.setBackground(c);
         jBColorB.setBackground(c);
+        jBColorL.setBackground(c);
         jBtn_traducir.setBackground(c);
         jTBInvertir.setBackground(c);
 
