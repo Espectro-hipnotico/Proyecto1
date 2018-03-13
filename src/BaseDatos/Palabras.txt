@@ -1,9 +1,0 @@
-Acento | .----. /
-Enterado | ...-. /
-Error | ...... /
-Espera | .-... /
-Fin de texto | ...-.- /
-Fin del mensaje | .-.-. /
-Recibido | .-. /
-Subrayado de texto | --... /
-SOS | ...---... /

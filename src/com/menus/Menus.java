@@ -1,24 +1,49 @@
 package com.menus;
 
 import com.metodos.*;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import javax.swing.DefaultListModel;
 
 public class Menus extends javax.swing.JFrame {
 
-    Visual objVis = new Visual();
-    Metodos objMet = new Metodos();
+    Visual objVis=new Visual();
+    Metodos objMet=new Metodos();
 
     // Variable para saber si invertir está seleccionada
-    Boolean vInvertir = false;
+    Boolean vInvertir=false;
+
+    // Array de String para almacenar las fuentes
+    private String fuentes[];
+    private DefaultListModel dlm;
 
     /**
      * Creates new form Menus
      */
     public Menus() {
+        // Carga las fuentes del sistema
+        dlm=new DefaultListModel();
+        fuentes=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
         initComponents();
+        // inserta la lista de fuentes en un Jlist del frame
+        jListaF.setModel(dlm);
+        // Metodo para inicializar la carga de datos
+        cargarComponentes();
+
         jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
-        jPAdmin.setVisible(false);
+        jConfig.setVisible(false);
 
+    }
+
+    private void cargarComponentes() {
+        for (int i=10; i<=30; i++) {
+            jComboSize.addItem(String.valueOf(i));
+        }
+        for (String fuente : fuentes) {
+            dlm.addElement(fuente);
+        }
     }
 
     /**
@@ -41,8 +66,11 @@ public class Menus extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
-        jPAdmin = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jConfig = new javax.swing.JPanel();
+        jPrueba = new javax.swing.JLabel();
+        jComboSize = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListaF = new javax.swing.JList<>();
         jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
@@ -131,13 +159,30 @@ public class Menus extends javax.swing.JFrame {
 
         getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
-        jPAdmin.setName("jPAdmin"); // NOI18N
-        jPAdmin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jConfig.setName("jConfig"); // NOI18N
+        jConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setText("Admin");
-        jPAdmin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 110, 110, 90));
+        jPrueba.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jPrueba.setText("jConfig");
+        jConfig.add(jPrueba, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 170, 60));
 
-        getContentPane().add(jPAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        jComboSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboSizeActionPerformed(evt);
+            }
+        });
+        jConfig.add(jComboSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 90, -1));
+
+        jListaF.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListaFValueChanged(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jListaF);
+
+        jConfig.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 240, 150));
+
+        getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
         jMTraductor.setText("Traductor");
         jMTraductor.setName("Btn_Traductor"); // NOI18N
@@ -191,16 +236,14 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMTraductorMouseClicked
 
     private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
-        
+
         objMet.limpiar();
         objVis.verPanelesMenus(jPComunes.getName());
     }//GEN-LAST:event_jMComunesMouseClicked
 
     private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
-       
-        objMet.limpiar();
-        objVis.verPanelesMenus(jPAdmin.getName());
-        
+
+
     }//GEN-LAST:event_jMAdminMouseClicked
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
@@ -212,12 +255,27 @@ public class Menus extends javax.swing.JFrame {
     private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
         objMet.limpiar();
 
-        vInvertir = jTBInvertir.isSelected();
+        vInvertir=jTBInvertir.isSelected();
     }//GEN-LAST:event_jTBInvertirActionPerformed
 
     private void jMI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI1ActionPerformed
-        // TODO add your handling code here:
+        objMet.limpiar();
+        objVis.verPanelesMenus(jConfig.getName());
     }//GEN-LAST:event_jMI1ActionPerformed
+
+    //Combo-BOX
+    private void jComboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSizeActionPerformed
+        Font f=jPrueba.getFont();
+        jPrueba.setFont(new Font(f.getName(), Font.PLAIN, Integer.parseInt(String.valueOf(jComboSize.getSelectedItem()))));
+    }//GEN-LAST:event_jComboSizeActionPerformed
+
+    // Lista
+    private void jListaFValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaFValueChanged
+        Font f=jPrueba.getFont();
+
+        jPrueba.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
+
+    }//GEN-LAST:event_jListaFValueChanged
 
     /**
      * @param args the command line arguments
@@ -256,20 +314,23 @@ public class Menus extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_traducir;
+    private javax.swing.JComboBox<String> jComboSize;
+    public static javax.swing.JPanel jConfig;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JList<String> jListaF;
     public javax.swing.JMenu jMAdmin;
     private javax.swing.JMenu jMComunes;
     private javax.swing.JMenuItem jMI1;
     private javax.swing.JMenuItem jMI2;
     private javax.swing.JMenu jMTraductor;
     public static javax.swing.JMenuBar jMenus;
-    public static javax.swing.JPanel jPAdmin;
     public static javax.swing.JPanel jPComunes;
     public static javax.swing.JPanel jPTraductor;
+    private javax.swing.JLabel jPrueba;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     public static javax.swing.JTextArea jTAreaTraducido;
     private javax.swing.JToggleButton jTBInvertir;
     public static javax.swing.JTextArea jTTraducir;
