@@ -4,11 +4,15 @@ import com.metodos.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 
 public class Menus extends javax.swing.JFrame {
-    
+
     Visual objVis = new Visual();
     Metodos objMet = new Metodos();
 
@@ -19,6 +23,12 @@ public class Menus extends javax.swing.JFrame {
     private String fuentes[];
     private DefaultListModel dlm;
 
+    // Variables para abrir ficheros desde el Pc
+    JFileChooser seleccionar = new JFileChooser();
+    File archivo;
+    FileInputStream entrada;
+    FileOutputStream salida;
+
     /**
      * Creates new form Menus
      */
@@ -26,19 +36,21 @@ public class Menus extends javax.swing.JFrame {
         // Carga las fuentes del sistema
         dlm = new DefaultListModel();
         fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        
+
         initComponents();
         // inserta la lista de fuentes en un Jlist del frame
         jListaF.setModel(dlm);
         // Metodo para inicializar la carga de datos
         cargarComponentes();
-        
+
         jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
         jConfig.setVisible(false);
-        
+
     }
-    
+
+    // Metodo para cargar los numeros meterlos en Combo Box del panel Configuración y
+    //agregamos todas las fuentes de nuestro sistema en nuestro JLista
     private void cargarComponentes() {
         for (int i = 10; i <= 30; i++) {
             jComboSize.addItem(String.valueOf(i));
@@ -46,6 +58,37 @@ public class Menus extends javax.swing.JFrame {
         for (String fuente : fuentes) {
             dlm.addElement(fuente);
         }
+    }
+
+    public String abrirArchivo(File archivo) {
+        String documento = "";
+        try {
+            entrada = new FileInputStream(archivo);
+            int ascci;
+            while ((ascci = entrada.read()) != -1) {
+                char caracter = (char) ascci;
+                documento += caracter;
+
+            }
+        } catch (Exception e) {
+
+        }
+
+        return documento;
+    }
+
+    public String guardarArchivo(File archivo, String documento) {
+        String mensaje = null;
+        try {
+            salida = new FileOutputStream(archivo);
+            byte[] bytxt = documento.getBytes();
+            salida.write(bytxt);
+            mensaje = "Archivo Guardado";
+
+        } catch (Exception e) {
+
+        }
+        return mensaje;
     }
 
     /**
@@ -76,6 +119,9 @@ public class Menus extends javax.swing.JFrame {
         jBColorF = new javax.swing.JButton();
         jBColorB = new javax.swing.JButton();
         jBColorL = new javax.swing.JButton();
+        jIdioma = new javax.swing.JPanel();
+        jBGuardar = new javax.swing.JButton();
+        jBAbrir = new javax.swing.JButton();
         jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
@@ -212,6 +258,26 @@ public class Menus extends javax.swing.JFrame {
 
         getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
+        jIdioma.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jBGuardar.setText("Guardar Documento");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
+        jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
+
+        jBAbrir.setText("Abrir Documento");
+        jBAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAbrirActionPerformed(evt);
+            }
+        });
+        jIdioma.add(jBAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+
         jMTraductor.setText("Traductor");
         jMTraductor.setName("Btn_Traductor"); // NOI18N
         jMTraductor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,6 +311,12 @@ public class Menus extends javax.swing.JFrame {
         jMAdmin.add(jMIConfig);
 
         jMIdioma.setText("Insertar idioma");
+        jMIdioma.setName("jIdioma"); // NOI18N
+        jMIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIdiomaActionPerformed(evt);
+            }
+        });
         jMAdmin.add(jMIdioma);
 
         jMenus.add(jMAdmin);
@@ -264,25 +336,25 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMTraductorMouseClicked
 
     private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
-        
+
         objMet.limpiar();
         objVis.verPanelesMenus(jPComunes.getName());
     }//GEN-LAST:event_jMComunesMouseClicked
 
     private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
-        
+
 
     }//GEN-LAST:event_jMAdminMouseClicked
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
-        
+
         jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
 
     }//GEN-LAST:event_jBtn_traducirActionPerformed
 
     private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
         objMet.limpiar();
-        
+
         vInvertir = jTBInvertir.isSelected();
     }//GEN-LAST:event_jTBInvertirActionPerformed
 
@@ -321,6 +393,29 @@ public class Menus extends javax.swing.JFrame {
         objVis.cambiarColorLetras(c);
     }//GEN-LAST:event_jBColorLActionPerformed
 
+    private void jMIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIdiomaActionPerformed
+        objMet.limpiar();
+        objVis.verPanelesMenus(jMIdioma.getName());
+    }//GEN-LAST:event_jMIdiomaActionPerformed
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
+        if(seleccionar.showDialog(null, "Abrir")== JFileChooser.APPROVE_OPTION){
+            archivo=seleccionar.getSelectedFile();
+            if(archivo.canRead()){
+                if(archivo.getName().endsWith("txt")){
+                    String documento= abrirArchivo(archivo);
+                    // Pensar donde almacenar la información
+                }
+            }
+            
+            
+        }
+    }//GEN-LAST:event_jBAbrirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,12 +452,15 @@ public class Menus extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton jBAbrir;
     public static javax.swing.JButton jBColorB;
     public static javax.swing.JButton jBColorF;
     public static javax.swing.JButton jBColorL;
+    public static javax.swing.JButton jBGuardar;
     public static javax.swing.JButton jBtn_traducir;
     private javax.swing.JComboBox<String> jComboSize;
     public static javax.swing.JPanel jConfig;
+    public static javax.swing.JPanel jIdioma;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListaF;
     public static javax.swing.JMenu jMAdmin;

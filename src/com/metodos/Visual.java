@@ -4,7 +4,6 @@ import static com.menus.Menus.*;
 import java.awt.Color;
 
 import java.awt.Font;
-import javax.swing.JColorChooser;
 
 public class Visual {
 
@@ -15,14 +14,23 @@ public class Visual {
                 jPTraductor.setVisible(true);
                 jPComunes.setVisible(false);
                 jConfig.setVisible(false);
+                jIdioma.setVisible(false);
                 break;
             case "jPComunes":
                 jPComunes.setVisible(true);
                 jPTraductor.setVisible(false);
                 jConfig.setVisible(false);
+                jIdioma.setVisible(false);
                 break;
             case "jConfig":
                 jConfig.setVisible(true);
+                jPTraductor.setVisible(false);
+                jPComunes.setVisible(false);
+                jIdioma.setVisible(false);
+                break;
+            case "jIdioma":
+                jIdioma.setVisible(true);
+                jConfig.setVisible(false);
                 jPTraductor.setVisible(false);
                 jPComunes.setVisible(false);
                 break;
