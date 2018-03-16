@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class Menus extends javax.swing.JFrame {
 
@@ -122,6 +123,8 @@ public class Menus extends javax.swing.JFrame {
         jIdioma = new javax.swing.JPanel();
         jBGuardar = new javax.swing.JButton();
         jBAbrir = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea = new javax.swing.JTextArea();
         jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
@@ -276,6 +279,12 @@ public class Menus extends javax.swing.JFrame {
         });
         jIdioma.add(jBAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
+        jTextArea.setColumns(20);
+        jTextArea.setRows(5);
+        jScrollPane5.setViewportView(jTextArea);
+
+        jIdioma.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+
         getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
         jMTraductor.setText("Traductor");
@@ -399,7 +408,24 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIdiomaActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
+        
+        if(seleccionar.showDialog(null, "Abrir")== JFileChooser.APPROVE_OPTION){
+            archivo=seleccionar.getSelectedFile();
+            if(archivo.getName().endsWith("txt")){
+                String Documento=jTextArea.getText();
+                String mensaje = guardarArchivo(archivo,Documento);
+                if(mensaje!= null){
+                    JOptionPane.showMessageDialog(null,mensaje);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Archivo no compatible");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Guardar documento de texto");
+            }
+            
+        }
+        
+        
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
@@ -409,6 +435,7 @@ public class Menus extends javax.swing.JFrame {
                 if(archivo.getName().endsWith("txt")){
                     String documento= abrirArchivo(archivo);
                     // Pensar donde almacenar la información
+                    jTextArea.setText(documento);
                 }
             }
             
@@ -476,9 +503,11 @@ public class Menus extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTextArea jTAreaTraducido;
     public static javax.swing.JToggleButton jTBInvertir;
     public static javax.swing.JTextArea jTTraducir;
     public static javax.swing.JTable jTable;
+    private javax.swing.JTextArea jTextArea;
     // End of variables declaration//GEN-END:variables
 }
