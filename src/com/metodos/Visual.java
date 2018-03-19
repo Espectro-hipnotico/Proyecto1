@@ -4,8 +4,13 @@ import static com.menus.Menus.*;
 import java.awt.Color;
 
 import java.awt.Font;
+import java.io.File;
+import java.io.InputStream;
+import static java.nio.file.Files.size;
 
 public class Visual {
+    // Variabla para el metodo CustomFont
+private Font font = null;
 
     public void verPanelesMenus(String nombrePanel) {
 
@@ -39,7 +44,9 @@ public class Visual {
 
     }
 
-    public void cambiarTamaño(String f, Integer size) {
+    public void cambiarTexto(String f, Integer size) {
+        
+        String algo;
 
         jPrueba.setFont(new Font(f, Font.PLAIN, size));
 
@@ -94,6 +101,34 @@ public class Visual {
         jBtn_traducir.setForeground(c);
         jTBInvertir.setForeground(c);
 
+    }
+
+    
+    
+    // Crea una fuente
+    public void CustomFont(String fuente) {
+
+        String fontName = fuente;
+
+        try {
+            //Se carga la fuente
+//            InputStream is =  getClass().getResourceAsStream(fontName);
+//            font = Font.createFont(Font.TRUETYPE_FONT, is);
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/"+fontName+".ttf"));
+        } catch (Exception ex) {
+            //Si existe un error se carga fuente por defecto ARIAL
+            System.err.println(fontName + " No se cargo la fuente");
+            font = new Font("Arial", Font.PLAIN, 14);
+        }
+    }
+
+    /* Font.PLAIN = 0 , Font.BOLD = 1 , Font.ITALIC = 2
+ * tamanio = float
+     */
+    public Font MyFont(int estilo, Integer tamanio) {
+        Font tfont = font.deriveFont(estilo, tamanio);
+         
+         return tfont;
     }
 
 }

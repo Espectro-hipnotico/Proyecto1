@@ -1,5 +1,6 @@
 package com.menus;
 
+import com.fichero.AccesoFichero;
 import com.metodos.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -7,6 +8,9 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -20,7 +24,7 @@ public class Menus extends javax.swing.JFrame {
     Boolean vInvertir = false;
 
     // Array de String para almacenar las fuentes
-    private String fuentes[];
+    private String[] fuentes;
     private DefaultListModel dlm;
 
     // Variables para abrir ficheros desde el Pc
@@ -41,23 +45,13 @@ public class Menus extends javax.swing.JFrame {
         // inserta la lista de fuentes en un Jlist del frame
         jListaF.setModel(dlm);
         // Metodo para inicializar la carga de datos
-        cargarComponentes();
+        objMet.cargarComponentes(dlm, fuentes);
 
         jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
         jConfig.setVisible(false);
+        jIdioma.setVisible(false);
 
-    }
-
-    // Metodo para cargar los numeros meterlos en Combo Box del panel Configuración y
-    //agregamos todas las fuentes de nuestro sistema en nuestro JLista
-    private void cargarComponentes() {
-        for (int i = 10; i <= 30; i++) {
-            jComboSize.addItem(String.valueOf(i));
-        }
-        for (String fuente : fuentes) {
-            dlm.addElement(fuente);
-        }
     }
 
     public String abrirArchivo(File archivo) {
@@ -79,6 +73,8 @@ public class Menus extends javax.swing.JFrame {
 
     public String guardarArchivo(File archivo, String documento) {
         String mensaje = null;
+        File guardar = new File(documento);
+        
         try {
             salida = new FileOutputStream(archivo);
             byte[] bytxt = documento.getBytes();
@@ -107,6 +103,7 @@ public class Menus extends javax.swing.JFrame {
         jTTraducir = new javax.swing.JTextArea();
         jBtn_traducir = new javax.swing.JButton();
         jTBInvertir = new javax.swing.JToggleButton();
+        jCIdioma = new javax.swing.JComboBox<>();
         jPComunes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -154,7 +151,7 @@ public class Menus extends javax.swing.JFrame {
                 jBtn_traducirActionPerformed(evt);
             }
         });
-        jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+        jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
 
         jTBInvertir.setText("Invertir");
         jTBInvertir.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +159,14 @@ public class Menus extends javax.swing.JFrame {
                 jTBInvertirActionPerformed(evt);
             }
         });
-        jPTraductor.add(jTBInvertir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
+        jPTraductor.add(jTBInvertir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, -1, -1));
+
+        jCIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCIdiomaActionPerformed(evt);
+            }
+        });
+        jPTraductor.add(jCIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 110, -1));
 
         getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
@@ -347,8 +351,14 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMAdminMouseClicked
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
-
-        jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
+        Object idioma=jCIdioma.getSelectedItem();
+        if(idioma.equals("Morse")){
+            jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
+        }else{
+             objMet.traductor(idioma, vInvertir);
+              
+        }
+        
 
     }//GEN-LAST:event_jBtn_traducirActionPerformed
 
@@ -356,6 +366,8 @@ public class Menus extends javax.swing.JFrame {
         objMet.limpiar();
 
         vInvertir = jTBInvertir.isSelected();
+        this.jBtn_traducirActionPerformed(evt);
+       
     }//GEN-LAST:event_jTBInvertirActionPerformed
 
     private void jMIConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIConfigActionPerformed
@@ -366,14 +378,14 @@ public class Menus extends javax.swing.JFrame {
     //Combo-BOX
     private void jComboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSizeActionPerformed
         Font f = jPrueba.getFont();
-        objVis.cambiarTamaño(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
+        objVis.cambiarTexto(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
         // jPrueba.setFont(new Font(f.getName(), Font.PLAIN, Integer.parseInt(String.valueOf(jComboSize.getSelectedItem()))));
     }//GEN-LAST:event_jComboSizeActionPerformed
 
     // Lista
     private void jListaFValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaFValueChanged
         Font f = jPrueba.getFont();
-        objVis.cambiarTamaño(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
+        objVis.cambiarTexto(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
         //  jPrueba.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
 
     }//GEN-LAST:event_jListaFValueChanged
@@ -399,22 +411,43 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIdiomaActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBGuardarActionPerformed
+        if (seleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            archivo = seleccionar.getSelectedFile();
+            if (archivo.getName().endsWith("ttf")) {
+               
+              File guardar = new File(archivo.getName());
+                System.out.println(archivo.getPath());
+              System.out.println(archivo.getName());
+             objMet.copyFileUsingFileChannels(guardar,archivo.getPath());
+            }
 
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+// BORRAR
     private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
-        if(seleccionar.showDialog(null, "Abrir")== JFileChooser.APPROVE_OPTION){
-            archivo=seleccionar.getSelectedFile();
-            if(archivo.canRead()){
-                if(archivo.getName().endsWith("txt")){
-                    String documento= abrirArchivo(archivo);
+
+        if (seleccionar.showDialog(null, "Abrir") == JFileChooser.APPROVE_OPTION) {
+            archivo = seleccionar.getSelectedFile();
+            if (archivo.canRead()) {
+                if (archivo.getName().endsWith("ttf")) {
+                    //String documento= abrirArchivo(archivo);
+                    String documento = String.valueOf(archivo);
                     // Pensar donde almacenar la información
                 }
             }
-            
-            
+
         }
+
+
     }//GEN-LAST:event_jBAbrirActionPerformed
+
+    private void jCIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCIdiomaActionPerformed
+       
+        
+          objMet.limpiar();
+          
+        
+    }//GEN-LAST:event_jCIdiomaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,7 +491,8 @@ public class Menus extends javax.swing.JFrame {
     public static javax.swing.JButton jBColorL;
     public static javax.swing.JButton jBGuardar;
     public static javax.swing.JButton jBtn_traducir;
-    private javax.swing.JComboBox<String> jComboSize;
+    public static javax.swing.JComboBox<String> jCIdioma;
+    public static javax.swing.JComboBox<String> jComboSize;
     public static javax.swing.JPanel jConfig;
     public static javax.swing.JPanel jIdioma;
     private javax.swing.JLabel jLabel2;
