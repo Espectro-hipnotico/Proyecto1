@@ -7,7 +7,7 @@ import com.metodos.*;
 public class Inicio extends javax.swing.JFrame {
 
     AccesoFichero objAcces=new AccesoFichero();
-    
+
     Menus obj=new Menus();
 
     Metodos met=new Metodos();
@@ -145,7 +145,7 @@ public class Inicio extends javax.swing.JFrame {
             this.setVisible(false);
             obj.setVisible(true);
             obj.jMAdmin.setVisible(false);
-            
+
         } else {
             if (met.validarEntrada(String.valueOf(jPassInicio.getPassword()))) {
 

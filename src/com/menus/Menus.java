@@ -18,18 +18,18 @@ import javax.swing.JOptionPane;
 
 public class Menus extends javax.swing.JFrame {
 
-    Visual objVis = new Visual();
-    Metodos objMet = new Metodos();
+    Visual objVis=new Visual();
+    Metodos objMet=new Metodos();
 
     // Variable para saber si invertir está seleccionada
-    Boolean vInvertir = false;
+    Boolean vInvertir=false;
 
     // Array de String para almacenar las fuentes
     private String[] fuentes;
     private DefaultListModel dlm;
 
     // Variables para abrir ficheros desde el Pc
-    JFileChooser seleccionar = new JFileChooser();
+    JFileChooser seleccionar=new JFileChooser();
     File archivo;
     FileInputStream entrada;
     FileOutputStream salida;
@@ -39,8 +39,8 @@ public class Menus extends javax.swing.JFrame {
      */
     public Menus() {
         // Carga las fuentes del sistema
-        dlm = new DefaultListModel();
-        fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        dlm=new DefaultListModel();
+        fuentes=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         initComponents();
         // inserta la lista de fuentes en un Jlist del frame
@@ -56,13 +56,13 @@ public class Menus extends javax.swing.JFrame {
     }
 
     public String abrirArchivo(File archivo) {
-        String documento = "";
+        String documento="";
         try {
-            entrada = new FileInputStream(archivo);
+            entrada=new FileInputStream(archivo);
             int ascci;
-            while ((ascci = entrada.read()) != -1) {
-                char caracter = (char) ascci;
-                documento += caracter;
+            while ((ascci=entrada.read())!=-1) {
+                char caracter=(char) ascci;
+                documento+=caracter;
 
             }
         } catch (Exception e) {
@@ -73,14 +73,14 @@ public class Menus extends javax.swing.JFrame {
     }
 
     public String guardarArchivo(File archivo, String documento) {
-        String mensaje = null;
-        File guardar = new File(documento);
-        
+        String mensaje=null;
+        File guardar=new File(documento);
+
         try {
-            salida = new FileOutputStream(archivo);
-            byte[] bytxt = documento.getBytes();
+            salida=new FileOutputStream(archivo);
+            byte[] bytxt=documento.getBytes();
             salida.write(bytxt);
-            mensaje = "Archivo Guardado";
+            mensaje="Archivo Guardado";
 
         } catch (Exception e) {
 
@@ -119,9 +119,6 @@ public class Menus extends javax.swing.JFrame {
         jBColorL = new javax.swing.JButton();
         jIdioma = new javax.swing.JPanel();
         jBGuardar = new javax.swing.JButton();
-        jBAbrir = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea = new javax.swing.JTextArea();
         jMenus = new javax.swing.JMenuBar();
         jMTraductor = new javax.swing.JMenu();
         jMComunes = new javax.swing.JMenu();
@@ -273,21 +270,7 @@ public class Menus extends javax.swing.JFrame {
                 jBGuardarActionPerformed(evt);
             }
         });
-        jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
-
-        jBAbrir.setText("Abrir Documento");
-        jBAbrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAbrirActionPerformed(evt);
-            }
-        });
-        jIdioma.add(jBAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
-
-        jTextArea.setColumns(20);
-        jTextArea.setRows(5);
-        jScrollPane5.setViewportView(jTextArea);
-
-        jIdioma.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 130));
 
         getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
@@ -361,22 +344,22 @@ public class Menus extends javax.swing.JFrame {
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
         Object idioma=jCIdioma.getSelectedItem();
-        if(idioma.equals("Morse")){
+        if (idioma.equals("Morse")) {
             jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
-        }else{
-             objMet.traductor(idioma, vInvertir);
-              
+        } else {
+            objMet.traductor(idioma, vInvertir);
+
         }
-        
+
 
     }//GEN-LAST:event_jBtn_traducirActionPerformed
 
     private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
         objMet.limpiar();
 
-        vInvertir = jTBInvertir.isSelected();
+        vInvertir=jTBInvertir.isSelected();
         this.jBtn_traducirActionPerformed(evt);
-       
+
     }//GEN-LAST:event_jTBInvertirActionPerformed
 
     private void jMIConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIConfigActionPerformed
@@ -386,31 +369,31 @@ public class Menus extends javax.swing.JFrame {
 
     //Combo-BOX
     private void jComboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSizeActionPerformed
-        Font f = jPrueba.getFont();
+        Font f=jPrueba.getFont();
         objVis.cambiarTexto(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
         // jPrueba.setFont(new Font(f.getName(), Font.PLAIN, Integer.parseInt(String.valueOf(jComboSize.getSelectedItem()))));
     }//GEN-LAST:event_jComboSizeActionPerformed
 
     // Lista
     private void jListaFValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaFValueChanged
-        Font f = jPrueba.getFont();
+        Font f=jPrueba.getFont();
         objVis.cambiarTexto(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
         //  jPrueba.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
 
     }//GEN-LAST:event_jListaFValueChanged
 
     private void jBColorFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorFActionPerformed
-        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorFondo(c);
     }//GEN-LAST:event_jBColorFActionPerformed
 
     private void jBColorBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorBActionPerformed
-        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorBotones(c);
     }//GEN-LAST:event_jBColorBActionPerformed
 
     private void jBColorLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorLActionPerformed
-        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorLetras(c);
     }//GEN-LAST:event_jBColorLActionPerformed
 
@@ -420,43 +403,24 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIdiomaActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        if (seleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
-            archivo = seleccionar.getSelectedFile();
+        if (seleccionar.showDialog(null, "Guardar")==JFileChooser.APPROVE_OPTION) {
+            archivo=seleccionar.getSelectedFile();
             if (archivo.getName().endsWith("ttf")) {
-               
-              File guardar = new File(archivo.getName());
+
+                File guardar=new File(archivo.getName());
                 System.out.println(archivo.getPath());
-              System.out.println(archivo.getName());
-             objMet.copyFileUsingFileChannels(guardar,archivo.getPath());
+                System.out.println(archivo.getName());
+                objMet.copyFileUsingFileChannels(guardar, archivo.getPath());
             }
 
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
-// BORRAR
-    private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
-
-        if (seleccionar.showDialog(null, "Abrir") == JFileChooser.APPROVE_OPTION) {
-            archivo = seleccionar.getSelectedFile();
-            if (archivo.canRead()) {
-                if (archivo.getName().endsWith("ttf")) {
-                    //String documento= abrirArchivo(archivo);
-                    String documento = String.valueOf(archivo);
-                    // Pensar donde almacenar la información
-                    jTextArea.setText(documento);
-                }
-            }
-
-        }
-
-
-    }//GEN-LAST:event_jBAbrirActionPerformed
 
     private void jCIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCIdiomaActionPerformed
-       
-        
-          objMet.limpiar();
-          
-        
+
+        objMet.limpiar();
+        this.jBtn_traducirActionPerformed(evt);
+
     }//GEN-LAST:event_jCIdiomaActionPerformed
 
     /**
@@ -498,7 +462,6 @@ public class Menus extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton jBAbrir;
     public static javax.swing.JButton jBColorB;
     public static javax.swing.JButton jBColorF;
     public static javax.swing.JButton jBColorL;
@@ -523,11 +486,9 @@ public class Menus extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTextArea jTAreaTraducido;
     public static javax.swing.JToggleButton jTBInvertir;
     public static javax.swing.JTextArea jTTraducir;
     public static javax.swing.JTable jTable;
-    private javax.swing.JTextArea jTextArea;
     // End of variables declaration//GEN-END:variables
 }

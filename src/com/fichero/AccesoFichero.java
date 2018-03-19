@@ -23,10 +23,10 @@ import org.apache.poi.poifs.filesystem.FileMagic;
 public class AccesoFichero {
 
     FileWriter fw;
-    public static ArrayList<String> lPassword = new ArrayList();
-    public static ArrayList<Morse> lMorse = new ArrayList();
-    public static ArrayList<Palabras_Comunes> lPComunes = new ArrayList();
-    public static ArrayList<String> lIdiomas = new ArrayList();
+    public static ArrayList<String> lPassword=new ArrayList();
+    public static ArrayList<Morse> lMorse=new ArrayList();
+    public static ArrayList<Palabras_Comunes> lPComunes=new ArrayList();
+    public static ArrayList<String> lIdiomas=new ArrayList();
     // objeto Morse
     Morse objM;
     // Array String
@@ -42,32 +42,32 @@ public class AccesoFichero {
 
         try {
 
-            Scanner scU = new Scanner(new File("src/baseDatos/usuarios.txt"));
+            Scanner scU=new Scanner(new File("src/baseDatos/usuarios.txt"));
             while (scU.hasNextLine()) {
                 lPassword.add(scU.nextLine());
             }
 
             scU.close();
 
-            Scanner scM = new Scanner(new File("src/baseDatos/morse.txt"));
+            Scanner scM=new Scanner(new File("src/baseDatos/morse.txt"));
             while (scM.hasNextLine()) {
-                arrayMorse = scM.nextLine().split("\\s* | \\s*");
-                objM = new Morse(arrayMorse[0], arrayMorse[2]);
+                arrayMorse=scM.nextLine().split("\\s* | \\s*");
+                objM=new Morse(arrayMorse[0], arrayMorse[2]);
                 lMorse.add(objM);
             }
 
             scM.close();
 
-            Scanner scP = new Scanner(new File("src/baseDatos/palabras.txt"));
+            Scanner scP=new Scanner(new File("src/baseDatos/palabras.txt"));
             while (scP.hasNextLine()) {
-                arrayPC = scP.nextLine().split("\\|");
-                objPC = new Palabras_Comunes(arrayPC[0], arrayPC[1]);
+                arrayPC=scP.nextLine().split("\\|");
+                objPC=new Palabras_Comunes(arrayPC[0], arrayPC[1]);
                 lPComunes.add(objPC);
             }
 
             scP.close();
 
-            Scanner scI = new Scanner(new File("src/baseDatos/idiomas.txt"));
+            Scanner scI=new Scanner(new File("src/baseDatos/idiomas.txt"));
             while (scI.hasNextLine()) {
                 lIdiomas.add(scI.nextLine());
             }
@@ -75,31 +75,29 @@ public class AccesoFichero {
             scP.close();
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Erro2" + ex.getMessage());
+            System.out.println("Erro2"+ex.getMessage());
         }
 
     }
 
     public void modFicheroIdiomas() {
-       
-         Iterator<String> it = lIdiomas.iterator();
-     
+
+        Iterator<String> it=lIdiomas.iterator();
+
         BufferedWriter bw;
         FileWriter fw;
-                    
 
-            try {
-                fw = new FileWriter(new File("src/baseDatos/idiomas.txt"));
-                while (it.hasNext()) {
-                    
-                    fw.write(it.next()+"\n");
-                }
+        try {
+            fw=new FileWriter(new File("src/baseDatos/idiomas.txt"));
+            while (it.hasNext()) {
 
-                fw.close();
-            } catch (IOException ex) {
-                System.out.println("Error 4");
+                fw.write(it.next()+"\n");
             }
-        
+
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Error 4");
+        }
 
     }
 
@@ -109,13 +107,13 @@ public class AccesoFichero {
 //ruta del archivo en el pc
 //String file = new String("E:\\pruebaArchivo\\ArchivoPrueba.xlsx"); 
 //rutal del archivo desde el src del proyecto
-        String fileLocal = new String("src/baseDatos/A.doc");
+        String fileLocal=new String("src/baseDatos/A.doc");
         try {
 
             // Valido solo para Windows
 //            Runtime.getRuntime().exec("cmd /c start "+fileLocal);
             // Valido para todos los Sistemas Operativos
-            File path = new File(fileLocal);
+            File path=new File(fileLocal);
             Desktop.getDesktop().open(path);
 
         } catch (IOException e) {

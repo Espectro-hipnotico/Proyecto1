@@ -10,7 +10,8 @@ import static java.nio.file.Files.size;
 
 public class Visual {
     // Variabla para el metodo CustomFont
-private Font font = null;
+
+    private Font font=null;
 
     public void verPanelesMenus(String nombrePanel) {
 
@@ -45,7 +46,7 @@ private Font font = null;
     }
 
     public void cambiarTexto(String f, Integer size) {
-        
+
         String algo;
 
         jPrueba.setFont(new Font(f, Font.PLAIN, size));
@@ -59,6 +60,8 @@ private Font font = null;
         jMAdmin.setFont(new Font(f, Font.PLAIN, size));
         jMIConfig.setFont(new Font(f, Font.PLAIN, size));
         jMIdioma.setFont(new Font(f, Font.PLAIN, size));
+        jIdioma.setFont(new Font(f, Font.PLAIN, size));
+        jBGuardar.setFont(new Font(f, Font.PLAIN, size));
     }
 
     public void cambiarColorFondo(Color c) {
@@ -66,6 +69,8 @@ private Font font = null;
         jConfig.setBackground(c);
         jPComunes.setBackground(c);
         jPTraductor.setBackground(c);
+        jIdioma.setBackground(c);
+
     }
 
     public void cambiarColorBotones(Color c) {
@@ -75,7 +80,7 @@ private Font font = null;
         jBColorL.setBackground(c);
         jBtn_traducir.setBackground(c);
         jTBInvertir.setBackground(c);
-
+        jBGuardar.setBackground(c);
     }
 
     public void cambiarColorLetras(Color c) {
@@ -83,42 +88,42 @@ private Font font = null;
 
         jTTraducir.setForeground(c);
         jTAreaTraducido.setForeground(c);
-        jBtn_traducir.setForeground(c);
-        jTBInvertir.setForeground(c);
         jMTraductor.setForeground(c);
         jMComunes.setForeground(c);
         jMAdmin.setForeground(c);
         jMIConfig.setForeground(c);
         jMIdioma.setForeground(c);
 
+        //Paneles
         jConfig.setForeground(c);
         jPComunes.setForeground(c);
         jPTraductor.setForeground(c);
+        jIdioma.setForeground(c);
 
+        //Botones
         jBColorF.setForeground(c);
         jBColorB.setForeground(c);
         jBColorL.setForeground(c);
         jBtn_traducir.setForeground(c);
         jTBInvertir.setForeground(c);
+        jBGuardar.setForeground(c);
 
     }
 
-    
-    
     // Crea una fuente
     public void CustomFont(String fuente) {
 
-        String fontName = fuente;
+        String fontName=fuente;
 
         try {
             //Se carga la fuente
 //            InputStream is =  getClass().getResourceAsStream(fontName);
 //            font = Font.createFont(Font.TRUETYPE_FONT, is);
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/"+fontName+".ttf"));
+            font=Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/"+fontName+".ttf"));
         } catch (Exception ex) {
             //Si existe un error se carga fuente por defecto ARIAL
-            System.err.println(fontName + " No se cargo la fuente");
-            font = new Font("Arial", Font.PLAIN, 14);
+            System.err.println(fontName+" No se cargo la fuente");
+            font=new Font("Arial", Font.PLAIN, 14);
         }
     }
 
@@ -126,9 +131,9 @@ private Font font = null;
  * tamanio = float
      */
     public Font MyFont(int estilo, Integer tamanio) {
-        Font tfont = font.deriveFont(estilo, tamanio);
-         
-         return tfont;
+        Font tfont=font.deriveFont(estilo, tamanio);
+
+        return tfont;
     }
 
 }
