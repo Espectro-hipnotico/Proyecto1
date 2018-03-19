@@ -42,14 +42,14 @@ public class AccesoFichero {
 
         try {
 
-            Scanner scU = new Scanner(new File("src/BaseDatos/usuarios.txt"));
+            Scanner scU = new Scanner(new File("src/baseDatos/usuarios.txt"));
             while (scU.hasNextLine()) {
                 lPassword.add(scU.nextLine());
             }
 
             scU.close();
 
-            Scanner scM = new Scanner(new File("src/BaseDatos/morse.txt"));
+            Scanner scM = new Scanner(new File("src/baseDatos/morse.txt"));
             while (scM.hasNextLine()) {
                 arrayMorse = scM.nextLine().split("\\s* | \\s*");
                 objM = new Morse(arrayMorse[0], arrayMorse[2]);
@@ -58,7 +58,7 @@ public class AccesoFichero {
 
             scM.close();
 
-            Scanner scP = new Scanner(new File("src/BaseDatos/palabras.txt"));
+            Scanner scP = new Scanner(new File("src/baseDatos/palabras.txt"));
             while (scP.hasNextLine()) {
                 arrayPC = scP.nextLine().split("\\|");
                 objPC = new Palabras_Comunes(arrayPC[0], arrayPC[1]);
@@ -67,7 +67,7 @@ public class AccesoFichero {
 
             scP.close();
 
-            Scanner scI = new Scanner(new File("src/BaseDatos/idiomas.txt"));
+            Scanner scI = new Scanner(new File("src/baseDatos/idiomas.txt"));
             while (scI.hasNextLine()) {
                 lIdiomas.add(scI.nextLine());
             }
@@ -88,7 +88,7 @@ public class AccesoFichero {
         FileWriter fw;
 
             try {
-                fw = new FileWriter(new File("src/BaseDatos/idiomas.txt"), true);
+                fw = new FileWriter(new File("src/baseDatos/idiomas.txt"), true);
                 while (it.hasNext()) {
                     fw.write(it.next()+"\n");
                 }
@@ -107,7 +107,7 @@ public class AccesoFichero {
 //ruta del archivo en el pc
 //String file = new String("E:\\pruebaArchivo\\ArchivoPrueba.xlsx"); 
 //rutal del archivo desde el src del proyecto
-        String fileLocal = new String("src/BaseDatos/A.doc");
+        String fileLocal = new String("src/baseDatos/A.doc");
         try {
 
             // Valido solo para Windows
