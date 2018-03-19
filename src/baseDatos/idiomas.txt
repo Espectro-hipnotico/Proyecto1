@@ -1,4 +1,3 @@
 Morse
-AurebeshMorse
 Aurebesh
 klingon.ttf
