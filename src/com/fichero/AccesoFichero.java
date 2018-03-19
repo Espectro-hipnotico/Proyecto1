@@ -80,16 +80,18 @@ public class AccesoFichero {
 
     }
 
-    public void modFicheroIdiomas(String nomFichero) {
+    public void modFicheroIdiomas() {
        
          Iterator<String> it = lIdiomas.iterator();
      
         BufferedWriter bw;
         FileWriter fw;
+                    
 
             try {
-                fw = new FileWriter(new File("src/baseDatos/idiomas.txt"), true);
+                fw = new FileWriter(new File("src/baseDatos/idiomas.txt"));
                 while (it.hasNext()) {
+                    
                     fw.write(it.next()+"\n");
                 }
 

@@ -219,11 +219,11 @@ public class Metodos {
             }
 
         }
-
-         AccesoFichero.lIdiomas.add(nombreExten);
-         objAcces.modFicheroIdiomas(nombreExten);
+ String[] nombre=nombreExten.split("\\.");
+         AccesoFichero.lIdiomas.add(nombre[0]);
+         objAcces.modFicheroIdiomas();
          
-         String[] nombre=nombreExten.split("\\.");
+        
          Menus.jCIdioma.addItem(nombre[0]);
 
     }
