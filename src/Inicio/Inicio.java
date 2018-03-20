@@ -3,14 +3,18 @@ package Inicio;
 import com.fichero.AccesoFichero;
 import com.menus.*;
 import com.metodos.*;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class Inicio extends javax.swing.JFrame {
 
-    AccesoFichero objAcces=new AccesoFichero();
+    AccesoFichero objAcces = new AccesoFichero();
 
-    Menus obj=new Menus();
+    Menus obj = new Menus();
 
-    Metodos met=new Metodos();
+    Metodos met = new Metodos();
 
     /**
      * Creates new form Inicio
@@ -21,6 +25,10 @@ public class Inicio extends javax.swing.JFrame {
         jPassInicio.setVisible(false);
         met.llenarTabla();
         met.cargaJCIdiomas();
+//       this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        this.setExtendedState(NORMAL);
+        System.out.println(this.getSize());
     }
 
     /**
@@ -32,97 +40,101 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
-        jFrame1 = new javax.swing.JFrame();
-        jDialog1 = new javax.swing.JDialog();
         jPInicio = new javax.swing.JPanel();
-        imgInicio = new javax.swing.JLabel();
         jPassInicio = new javax.swing.JPasswordField();
         jBInicio = new javax.swing.JButton();
         jComboInicio = new javax.swing.JComboBox<>();
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
-
-        jCheckBoxMenuItem2.setSelected(true);
-        jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
-
-        jCheckBoxMenuItem3.setSelected(true);
-        jCheckBoxMenuItem3.setText("jCheckBoxMenuItem3");
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLIniciarS = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AT-AT Morse");
+        setBackground(new java.awt.Color(204, 204, 204));
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setExtendedState(6);
+        setIconImage(getIconImage());
+        setPreferredSize(new java.awt.Dimension(1200, 800));
 
-        jPInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPInicio.setBackground(new java.awt.Color(204, 204, 255));
+        jPInicio.setAutoscrolls(true);
 
-        imgInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuario.png"))); // NOI18N
-        jPInicio.add(imgInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 234));
-
+        jPassInicio.setForeground(new java.awt.Color(204, 204, 204));
+        jPassInicio.setMinimumSize(new java.awt.Dimension(6, 30));
         jPassInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBInicioActionPerformed(evt);
             }
         });
-        jPInicio.add(jPassInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 83, -1));
 
+        jBInicio.setBackground(new java.awt.Color(0, 51, 102));
+        jBInicio.setForeground(new java.awt.Color(255, 255, 255));
         jBInicio.setText("Entrar");
         jBInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBInicioActionPerformed(evt);
             }
         });
-        jPInicio.add(jBInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 83, -1));
 
+        jComboInicio.setForeground(new java.awt.Color(255, 255, 255));
         jComboInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Admin" }));
+        jComboInicio.setToolTipText("");
         jComboInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboInicioActionPerformed(evt);
             }
         });
-        jPInicio.add(jComboInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+
+        jLIniciarS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLIniciarS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLIniciarS.setText("Iniciar Sesión");
+
+        javax.swing.GroupLayout jPInicioLayout = new javax.swing.GroupLayout(jPInicio);
+        jPInicio.setLayout(jPInicioLayout);
+        jPInicioLayout.setHorizontalGroup(
+            jPInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPInicioLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addGroup(jPInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLIniciarS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPassInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+        jPInicioLayout.setVerticalGroup(
+            jPInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPInicioLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLIniciarS, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(jComboInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jPassInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jBInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(400, Short.MAX_VALUE)
+                .addComponent(jPInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(400, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(200, Short.MAX_VALUE)
+                .addComponent(jPInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
 
 
     private void jComboInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboInicioActionPerformed
@@ -208,16 +220,25 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imgInicio;
     private javax.swing.JButton jBInicio;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JComboBox<String> jComboInicio;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel jLIniciarS;
     private javax.swing.JPanel jPInicio;
     private static javax.swing.JPasswordField jPassInicio;
     // End of variables declaration//GEN-END:variables
+
+
+    /**
+     * Metodo sustituir el icono del Jframe
+     *
+     * @return Una Image al sistema
+     */
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Images/at-at.png"));
+
+        return retValue;
+    }
+
 }

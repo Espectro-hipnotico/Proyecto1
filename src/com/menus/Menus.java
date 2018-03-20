@@ -5,6 +5,8 @@ import com.metodos.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,18 +20,18 @@ import javax.swing.JOptionPane;
 
 public class Menus extends javax.swing.JFrame {
 
-    Visual objVis=new Visual();
-    Metodos objMet=new Metodos();
+    Visual objVis = new Visual();
+    Metodos objMet = new Metodos();
 
     // Variable para saber si invertir está seleccionada
-    Boolean vInvertir=false;
+    Boolean vInvertir = false;
 
     // Array de String para almacenar las fuentes
     private String[] fuentes;
     private DefaultListModel dlm;
 
     // Variables para abrir ficheros desde el Pc
-    JFileChooser seleccionar=new JFileChooser();
+    JFileChooser seleccionar = new JFileChooser();
     File archivo;
     FileInputStream entrada;
     FileOutputStream salida;
@@ -39,10 +41,11 @@ public class Menus extends javax.swing.JFrame {
      */
     public Menus() {
         // Carga las fuentes del sistema
-        dlm=new DefaultListModel();
-        fuentes=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        dlm = new DefaultListModel();
+        fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         initComponents();
+        
         // inserta la lista de fuentes en un Jlist del frame
         jListaF.setModel(dlm);
         // Metodo para inicializar la carga de datos
@@ -53,16 +56,22 @@ public class Menus extends javax.swing.JFrame {
         jConfig.setVisible(false);
         jIdioma.setVisible(false);
 
+        // Ventana
+        this.setExtendedState(NORMAL);
+        this.setLocationRelativeTo(null); // Centra la ventana en el monitor
+        //this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
     }
 
+
     public String abrirArchivo(File archivo) {
-        String documento="";
+        String documento = "";
         try {
-            entrada=new FileInputStream(archivo);
+            entrada = new FileInputStream(archivo);
             int ascci;
-            while ((ascci=entrada.read())!=-1) {
-                char caracter=(char) ascci;
-                documento+=caracter;
+            while ((ascci = entrada.read()) != -1) {
+                char caracter = (char) ascci;
+                documento += caracter;
 
             }
         } catch (Exception e) {
@@ -73,14 +82,14 @@ public class Menus extends javax.swing.JFrame {
     }
 
     public String guardarArchivo(File archivo, String documento) {
-        String mensaje=null;
-        File guardar=new File(documento);
+        String mensaje = null;
+        File guardar = new File(documento);
 
         try {
-            salida=new FileOutputStream(archivo);
-            byte[] bytxt=documento.getBytes();
+            salida = new FileOutputStream(archivo);
+            byte[] bytxt = documento.getBytes();
             salida.write(bytxt);
-            mensaje="Archivo Guardado";
+            mensaje = "Archivo Guardado";
 
         } catch (Exception e) {
 
@@ -127,23 +136,32 @@ public class Menus extends javax.swing.JFrame {
         jMIdioma = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 204));
+        setExtendedState(6);
+        setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(1200, 800));
+        setPreferredSize(new java.awt.Dimension(1200, 800));
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPTraductor.setBackground(new java.awt.Color(204, 204, 204));
+        jPTraductor.setForeground(new java.awt.Color(204, 204, 204));
+        jPTraductor.setToolTipText("");
         jPTraductor.setName("jPTraductor"); // NOI18N
-        jPTraductor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPTraductor.setPreferredSize(new java.awt.Dimension(1200, 800));
 
         jTAreaTraducido.setEditable(false);
         jTAreaTraducido.setColumns(20);
         jTAreaTraducido.setRows(5);
         jScrollPane1.setViewportView(jTAreaTraducido);
 
-        jPTraductor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, 120));
-
         jTTraducir.setColumns(20);
         jTTraducir.setRows(5);
         jScrollPane2.setViewportView(jTTraducir);
-
-        jPTraductor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 120));
 
         jBtn_traducir.setText("Traducir");
         jBtn_traducir.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +169,6 @@ public class Menus extends javax.swing.JFrame {
                 jBtn_traducirActionPerformed(evt);
             }
         });
-        jPTraductor.add(jBtn_traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
 
         jTBInvertir.setText("Invertir");
         jTBInvertir.addActionListener(new java.awt.event.ActionListener() {
@@ -159,18 +176,54 @@ public class Menus extends javax.swing.JFrame {
                 jTBInvertirActionPerformed(evt);
             }
         });
-        jPTraductor.add(jTBInvertir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, -1, -1));
 
         jCIdioma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCIdiomaActionPerformed(evt);
             }
         });
-        jPTraductor.add(jCIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 110, -1));
 
-        getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        javax.swing.GroupLayout jPTraductorLayout = new javax.swing.GroupLayout(jPTraductor);
+        jPTraductor.setLayout(jPTraductorLayout);
+        jPTraductorLayout.setHorizontalGroup(
+            jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPTraductorLayout.createSequentialGroup()
+                .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPTraductorLayout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPTraductorLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jCIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBtn_traducir)
+                            .addComponent(jTBInvertir)))
+                    .addGroup(jPTraductorLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(657, 657, 657))
+        );
+        jPTraductorLayout.setVerticalGroup(
+            jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPTraductorLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jCIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jBtn_traducir)
+                .addGap(17, 17, 17)
+                .addComponent(jTBInvertir)
+                .addGap(111, 111, 111)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPComunes.setName("jPComunes"); // NOI18N
+        jPComunes.setPreferredSize(new java.awt.Dimension(1200, 800));
         jPComunes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Comunes");
@@ -212,9 +265,10 @@ public class Menus extends javax.swing.JFrame {
 
         jPComunes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 300));
 
-        getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         jConfig.setName("jConfig"); // NOI18N
+        jConfig.setPreferredSize(new java.awt.Dimension(1200, 800));
         jConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPrueba.setText("jConfig");
@@ -260,8 +314,9 @@ public class Menus extends javax.swing.JFrame {
         });
         jConfig.add(jBColorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 160, -1));
 
-        getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
+        jIdioma.setPreferredSize(new java.awt.Dimension(1200, 800));
         jIdioma.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBGuardar.setText("Guardar Documento");
@@ -272,8 +327,16 @@ public class Menus extends javax.swing.JFrame {
         });
         jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 130));
 
-        getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
+        getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
+        jMenus.setBackground(new java.awt.Color(204, 204, 255));
+        jMenus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenus.setForeground(new java.awt.Color(255, 255, 255));
+        jMenus.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenus.setMinimumSize(new java.awt.Dimension(160, 25));
+        jMenus.setPreferredSize(new java.awt.Dimension(180, 50));
+
+        jMTraductor.setBackground(new java.awt.Color(51, 51, 255));
         jMTraductor.setText("Traductor");
         jMTraductor.setName("Btn_Traductor"); // NOI18N
         jMTraductor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -283,6 +346,7 @@ public class Menus extends javax.swing.JFrame {
         });
         jMenus.add(jMTraductor);
 
+        jMComunes.setBackground(new java.awt.Color(51, 51, 255));
         jMComunes.setText("Comunes");
         jMComunes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -291,6 +355,7 @@ public class Menus extends javax.swing.JFrame {
         });
         jMenus.add(jMComunes);
 
+        jMAdmin.setBackground(new java.awt.Color(51, 51, 255));
         jMAdmin.setText("Admin");
         jMAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -298,6 +363,8 @@ public class Menus extends javax.swing.JFrame {
             }
         });
 
+        jMIConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMIConfig.setBackground(new java.awt.Color(51, 51, 255));
         jMIConfig.setText("Configuración");
         jMIConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,6 +373,8 @@ public class Menus extends javax.swing.JFrame {
         });
         jMAdmin.add(jMIConfig);
 
+        jMIdioma.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMIdioma.setBackground(new java.awt.Color(51, 51, 255));
         jMIdioma.setText("Insertar idioma");
         jMIdioma.setName("jIdioma"); // NOI18N
         jMIdioma.addActionListener(new java.awt.event.ActionListener() {
@@ -343,7 +412,7 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMAdminMouseClicked
 
     private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
-        Object idioma=jCIdioma.getSelectedItem();
+        Object idioma = jCIdioma.getSelectedItem();
         if (idioma.equals("Morse")) {
             jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
         } else {
@@ -357,7 +426,7 @@ public class Menus extends javax.swing.JFrame {
     private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
         objMet.limpiar();
 
-        vInvertir=jTBInvertir.isSelected();
+        vInvertir = jTBInvertir.isSelected();
         this.jBtn_traducirActionPerformed(evt);
 
     }//GEN-LAST:event_jTBInvertirActionPerformed
@@ -369,31 +438,31 @@ public class Menus extends javax.swing.JFrame {
 
     //Combo-BOX
     private void jComboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSizeActionPerformed
-        Font f=jPrueba.getFont();
+        Font f = jPrueba.getFont();
         objVis.cambiarTexto(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
         // jPrueba.setFont(new Font(f.getName(), Font.PLAIN, Integer.parseInt(String.valueOf(jComboSize.getSelectedItem()))));
     }//GEN-LAST:event_jComboSizeActionPerformed
 
     // Lista
     private void jListaFValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaFValueChanged
-        Font f=jPrueba.getFont();
+        Font f = jPrueba.getFont();
         objVis.cambiarTexto(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
         //  jPrueba.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
 
     }//GEN-LAST:event_jListaFValueChanged
 
     private void jBColorFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorFActionPerformed
-        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorFondo(c);
     }//GEN-LAST:event_jBColorFActionPerformed
 
     private void jBColorBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorBActionPerformed
-        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorBotones(c);
     }//GEN-LAST:event_jBColorBActionPerformed
 
     private void jBColorLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorLActionPerformed
-        Color c=JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
+        Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorLetras(c);
     }//GEN-LAST:event_jBColorLActionPerformed
 
@@ -403,11 +472,11 @@ public class Menus extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIdiomaActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        if (seleccionar.showDialog(null, "Guardar")==JFileChooser.APPROVE_OPTION) {
-            archivo=seleccionar.getSelectedFile();
+        if (seleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            archivo = seleccionar.getSelectedFile();
             if (archivo.getName().endsWith("ttf")) {
 
-                File guardar=new File(archivo.getName());
+                File guardar = new File(archivo.getName());
                 System.out.println(archivo.getPath());
                 System.out.println(archivo.getName());
                 objMet.copyFileUsingFileChannels(guardar, archivo.getPath());
@@ -422,6 +491,18 @@ public class Menus extends javax.swing.JFrame {
         this.jBtn_traducirActionPerformed(evt);
 
     }//GEN-LAST:event_jCIdiomaActionPerformed
+    
+    // Cambio estado de la pantalla
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        
+        if(evt.getNewState()==6){
+           
+            
+            jPTraductor.setPreferredSize(evt.getWindow().getSize());
+
+        }     
+        
+    }//GEN-LAST:event_formWindowStateChanged
 
     /**
      * @param args the command line arguments
@@ -491,4 +572,18 @@ public class Menus extends javax.swing.JFrame {
     public static javax.swing.JTextArea jTTraducir;
     public static javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Metodo sustituir el icono del Jframe
+     *
+     * @return Una Image al sistema
+     */
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Images/at-at.png"));
+
+        return retValue;
+    }
+
 }
