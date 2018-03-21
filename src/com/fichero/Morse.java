@@ -1,7 +1,7 @@
 
 package com.fichero;
 
-
+// Clase para definir el Objeto Morse
 public class Morse {
     private String letra;
     private String codigo;

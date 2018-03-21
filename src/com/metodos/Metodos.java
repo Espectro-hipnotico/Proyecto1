@@ -2,11 +2,7 @@ package com.metodos;
 
 import com.fichero.*;
 import com.menus.Menus;
-import static com.menus.Menus.jPrueba;
-import static com.menus.Menus.jTAreaTraducido;
 import static com.menus.Menus.jTTraducir;
-import static com.menus.Menus.jTable;
-import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +18,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
+import static com.menus.Menus.jTableComun;
+import static com.menus.Menus.jTituloFont;
+import static com.menus.Menus.jTTraducido;
 
 public class Metodos {
 
@@ -62,7 +61,7 @@ public class Metodos {
 
     // Limpia las cajas de Texto del metodo MENU
     public void limpiar() {
-        Menus.jTAreaTraducido.setText(null);
+        Menus.jTTraducido.setText(null);
         Menus.jTTraducir.setText(null);
     }
 
@@ -76,13 +75,13 @@ public class Metodos {
         }
 
         if (condicion == false) {
-            jTAreaTraducido.setFont(objV.MyFont(0, jPrueba.getFont().getSize()));
-            jTTraducir.setFont(jPrueba.getFont());
-            jTAreaTraducido.setText(jTTraducir.getText());
+            jTTraducido.setFont(objV.MyFont(0, jTituloFont.getFont().getSize()));
+            jTTraducir.setFont(jTituloFont.getFont());
+            jTTraducido.setText(jTTraducir.getText());
         } else {
-            jTTraducir.setFont(objV.MyFont(0, jPrueba.getFont().getSize()));
-            jTAreaTraducido.setFont(jPrueba.getFont());
-            jTAreaTraducido.setText(jTTraducir.getText());
+            jTTraducir.setFont(objV.MyFont(0, jTituloFont.getFont().getSize()));
+            jTTraducido.setFont(jTituloFont.getFont());
+            jTTraducido.setText(jTTraducir.getText());
         }
 
     }
@@ -141,7 +140,7 @@ public class Metodos {
 
         }
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTableComun.setModel(new javax.swing.table.DefaultTableModel(
                 matriz,
                 new String[]{
                     "Palabra", "Morse"

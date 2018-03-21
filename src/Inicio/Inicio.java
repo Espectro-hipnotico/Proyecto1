@@ -3,10 +3,9 @@ package Inicio;
 import com.fichero.AccesoFichero;
 import com.menus.*;
 import com.metodos.*;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
@@ -14,21 +13,27 @@ public class Inicio extends javax.swing.JFrame {
 
     Menus obj = new Menus();
 
-    Metodos met = new Metodos();
+    Metodos objMet = new Metodos();
 
     /**
      * Creates new form Inicio
      */
     public Inicio() {
-        initComponents();
-        objAcces.leerFichero();
-        jPassInicio.setVisible(false);
-        met.llenarTabla();
-        met.cargaJCIdiomas();
-//       this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
+        initComponents();
+        // LLamada para leer los ficheros
+        objAcces.leerFichero();
+        // Hacer Invisible un textLabel
+        jPassInicio.setVisible(false);
+        //LLenar la tabal del Menu Comunes
+        objMet.llenarTabla();
+        // LLenar el ComboBox del Menu traductor que contiene los idiomas
+        objMet.cargaJCIdiomas();
+        // Obliga a la pantalla a abrirse en modo normal, modo predefinido por
+        // mí para que tenga un tamaño determinado
         this.setExtendedState(NORMAL);
-        System.out.println(this.getSize());
+        //Cargo las fuentes y tamaño predefinidas de todos los elementos.
+        Visual.textPredefinido();
     }
 
     /**
@@ -44,7 +49,7 @@ public class Inicio extends javax.swing.JFrame {
         jPassInicio = new javax.swing.JPasswordField();
         jBInicio = new javax.swing.JButton();
         jComboInicio = new javax.swing.JComboBox<>();
-        jLIniciarS = new javax.swing.JLabel();
+        jTituloInicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AT-AT Morse");
@@ -83,9 +88,9 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLIniciarS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLIniciarS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLIniciarS.setText("Iniciar Sesión");
+        jTituloInicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTituloInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTituloInicio.setText("Iniciar Sesión");
 
         javax.swing.GroupLayout jPInicioLayout = new javax.swing.GroupLayout(jPInicio);
         jPInicio.setLayout(jPInicioLayout);
@@ -94,7 +99,7 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPInicioLayout.createSequentialGroup()
                 .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(jPInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLIniciarS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTituloInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPassInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -104,7 +109,7 @@ public class Inicio extends javax.swing.JFrame {
             jPInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPInicioLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(jLIniciarS, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTituloInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79)
                 .addComponent(jComboInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -134,45 +139,53 @@ public class Inicio extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
 
-
+    /**
+     * Selecciona el usuario con el que quiere acceder, si selecciona admin hace
+     * visible un TextPassword y hace la llamada de un metodo, refresco
+     *
+     * @param evt
+     */
     private void jComboInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboInicioActionPerformed
         // jPassInicio.setEchoChar((char)0); Haría visible la contraseña
 
         if (jComboInicio.getSelectedItem().equals("Admin")) {
             jPassInicio.setVisible(true);
             this.recargarJframe();
-
-            System.out.println(jComboInicio.getSelectedItem());
         } else {
             jPassInicio.setVisible(false);
 
         }
     }//GEN-LAST:event_jComboInicioActionPerformed
 
+    /**
+     * Boton entrar, dependiendo de lo elegido habilita ciertas pestañas, si la
+     * contraseña es incorrecta salta un erro de validación
+     *
+     * @param evt
+     */
     private void jBInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInicioActionPerformed
 
         if (jComboInicio.getSelectedItem().equals("Usuario")) {
             this.setVisible(false);
             obj.setVisible(true);
-            obj.jMAdmin.setVisible(false);
+            obj.jAdminMenu.setVisible(false);
 
         } else {
-            if (met.validarEntrada(String.valueOf(jPassInicio.getPassword()))) {
+            if (objMet.validarEntrada(String.valueOf(jPassInicio.getPassword()))) {
 
                 this.setVisible(false);
                 obj.setVisible(true);
-                obj.jMAdmin.setVisible(true);
+                obj.jAdminMenu.setVisible(true);
 
             } else {
-                System.out.println("Clave incorrecta");
+                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "Atención", JOptionPane.WARNING_MESSAGE);
                 jPassInicio.setText("");
             }
         }
 
     }//GEN-LAST:event_jBInicioActionPerformed
-
+    // Recargar
     public void recargarJframe() {
         revalidate();
         repaint();
@@ -220,13 +233,12 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBInicio;
-    private javax.swing.JComboBox<String> jComboInicio;
-    private javax.swing.JLabel jLIniciarS;
+    public static javax.swing.JButton jBInicio;
+    public static javax.swing.JComboBox<String> jComboInicio;
     private javax.swing.JPanel jPInicio;
-    private static javax.swing.JPasswordField jPassInicio;
+    public static javax.swing.JPasswordField jPassInicio;
+    public static javax.swing.JLabel jTituloInicio;
     // End of variables declaration//GEN-END:variables
-
 
     /**
      * Metodo sustituir el icono del Jframe

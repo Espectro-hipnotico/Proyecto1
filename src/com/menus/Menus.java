@@ -1,6 +1,5 @@
 package com.menus;
 
-import com.fichero.AccesoFichero;
 import com.metodos.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -10,13 +9,9 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 public class Menus extends javax.swing.JFrame {
 
@@ -45,56 +40,22 @@ public class Menus extends javax.swing.JFrame {
         fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         initComponents();
-        
+
         // inserta la lista de fuentes en un Jlist del frame
         jListaF.setModel(dlm);
         // Metodo para inicializar la carga de datos
         objMet.cargarComponentes(dlm, fuentes);
-
+        //Elegir que paneles son visibles y cuales no, al iniciar el JFrame Menu
         jPTraductor.setVisible(true);
         jPComunes.setVisible(false);
         jConfig.setVisible(false);
         jIdioma.setVisible(false);
-
-        // Ventana
+        // Obliga a la pantalla a abrirse en modo normal, modo predefinido por
+        // mí para que tenga un tamaño determinado
         this.setExtendedState(NORMAL);
-        this.setLocationRelativeTo(null); // Centra la ventana en el monitor
-        //this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        // Centra la ventana en el monitor
+        this.setLocationRelativeTo(null);
 
-    }
-
-
-    public String abrirArchivo(File archivo) {
-        String documento = "";
-        try {
-            entrada = new FileInputStream(archivo);
-            int ascci;
-            while ((ascci = entrada.read()) != -1) {
-                char caracter = (char) ascci;
-                documento += caracter;
-
-            }
-        } catch (Exception e) {
-
-        }
-
-        return documento;
-    }
-
-    public String guardarArchivo(File archivo, String documento) {
-        String mensaje = null;
-        File guardar = new File(documento);
-
-        try {
-            salida = new FileOutputStream(archivo);
-            byte[] bytxt = documento.getBytes();
-            salida.write(bytxt);
-            mensaje = "Archivo Guardado";
-
-        } catch (Exception e) {
-
-        }
-        return mensaje;
     }
 
     /**
@@ -108,39 +69,44 @@ public class Menus extends javax.swing.JFrame {
 
         jPTraductor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTAreaTraducido = new javax.swing.JTextArea();
+        jTTraducido = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTTraducir = new javax.swing.JTextArea();
-        jBtn_traducir = new javax.swing.JButton();
-        jTBInvertir = new javax.swing.JToggleButton();
+        jBtraducir = new javax.swing.JButton();
+        jBInvertir = new javax.swing.JToggleButton();
         jCIdioma = new javax.swing.JComboBox<>();
+        jTituloTraducido = new javax.swing.JLabel();
+        jTituloTraducir = new javax.swing.JLabel();
         jPComunes = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jTituloComun = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        jTableComun = new javax.swing.JTable();
         jConfig = new javax.swing.JPanel();
-        jPrueba = new javax.swing.JLabel();
+        jTituloFont = new javax.swing.JLabel();
         jComboSize = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         jListaF = new javax.swing.JList<>();
         jBColorF = new javax.swing.JButton();
         jBColorB = new javax.swing.JButton();
         jBColorL = new javax.swing.JButton();
+        jTituloSize = new javax.swing.JLabel();
+        jMuestra = new javax.swing.JLabel();
+        jBValidar = new javax.swing.JButton();
         jIdioma = new javax.swing.JPanel();
         jBGuardar = new javax.swing.JButton();
+        jTituloIdioma = new javax.swing.JLabel();
         jMenus = new javax.swing.JMenuBar();
-        jMTraductor = new javax.swing.JMenu();
-        jMComunes = new javax.swing.JMenu();
-        jMAdmin = new javax.swing.JMenu();
-        jMIConfig = new javax.swing.JMenuItem();
-        jMIdioma = new javax.swing.JMenuItem();
+        jTraductorMenu = new javax.swing.JMenu();
+        jComunesMenu = new javax.swing.JMenu();
+        jAdminMenu = new javax.swing.JMenu();
+        jConfigMenu = new javax.swing.JMenuItem();
+        jIdiomaMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
         setExtendedState(6);
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(1200, 800));
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -148,32 +114,34 @@ public class Menus extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPTraductor.setBackground(new java.awt.Color(204, 204, 204));
-        jPTraductor.setForeground(new java.awt.Color(204, 204, 204));
+        jPTraductor.setBackground(new java.awt.Color(204, 204, 255));
+        jPTraductor.setForeground(new java.awt.Color(204, 204, 255));
         jPTraductor.setToolTipText("");
         jPTraductor.setName("jPTraductor"); // NOI18N
         jPTraductor.setPreferredSize(new java.awt.Dimension(1200, 800));
 
-        jTAreaTraducido.setEditable(false);
-        jTAreaTraducido.setColumns(20);
-        jTAreaTraducido.setRows(5);
-        jScrollPane1.setViewportView(jTAreaTraducido);
+        jTTraducido.setEditable(false);
+        jTTraducido.setColumns(20);
+        jTTraducido.setRows(5);
+        jTTraducido.setPreferredSize(new java.awt.Dimension(160, 95));
+        jScrollPane1.setViewportView(jTTraducido);
 
         jTTraducir.setColumns(20);
         jTTraducir.setRows(5);
+        jTTraducir.setPreferredSize(new java.awt.Dimension(160, 95));
         jScrollPane2.setViewportView(jTTraducir);
 
-        jBtn_traducir.setText("Traducir");
-        jBtn_traducir.addActionListener(new java.awt.event.ActionListener() {
+        jBtraducir.setText("Traducir");
+        jBtraducir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtn_traducirActionPerformed(evt);
+                jBtraducirActionPerformed(evt);
             }
         });
 
-        jTBInvertir.setText("Invertir");
-        jTBInvertir.addActionListener(new java.awt.event.ActionListener() {
+        jBInvertir.setText("Invertir");
+        jBInvertir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTBInvertirActionPerformed(evt);
+                jBInvertirActionPerformed(evt);
             }
         });
 
@@ -183,53 +151,68 @@ public class Menus extends javax.swing.JFrame {
             }
         });
 
+        jTituloTraducido.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloTraducido.setText("Texto traducido");
+
+        jTituloTraducir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloTraducir.setText("Texto a traducir");
+
         javax.swing.GroupLayout jPTraductorLayout = new javax.swing.GroupLayout(jPTraductor);
         jPTraductor.setLayout(jPTraductorLayout);
         jPTraductorLayout.setHorizontalGroup(
             jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPTraductorLayout.createSequentialGroup()
-                .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(59, 59, 59)
+                .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTituloTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPTraductorLayout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPTraductorLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jCIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtn_traducir)
-                            .addComponent(jTBInvertir)))
-                    .addGroup(jPTraductorLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(657, 657, 657))
+                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBInvertir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jCIdioma, 0, 140, Short.MAX_VALUE)
+                            .addComponent(jBtraducir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(164, 164, 164)
+                        .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTituloTraducido, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
         jPTraductorLayout.setVerticalGroup(
             jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPTraductorLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jCIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jBtn_traducir)
+                .addGap(112, 112, 112)
+                .addComponent(jTituloTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPTraductorLayout.createSequentialGroup()
+                        .addComponent(jCIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(jBtraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPTraductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBInvertir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTituloTraducido, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addComponent(jTBInvertir)
-                .addGap(111, 111, 111)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPTraductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jPComunes.setBackground(new java.awt.Color(204, 204, 255));
+        jPComunes.setForeground(new java.awt.Color(204, 204, 255));
+        jPComunes.setMinimumSize(new java.awt.Dimension(0, 0));
         jPComunes.setName("jPComunes"); // NOI18N
         jPComunes.setPreferredSize(new java.awt.Dimension(1200, 800));
         jPComunes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Comunes");
-        jPComunes.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
+        jTituloComun.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloComun.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTituloComun.setText("<html>Diccionario de palabras <br>  comunes en código Morse</html>"); // NOI18N
+        jPComunes.add(jTituloComun, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 380, 100));
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTableComun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -261,25 +244,25 @@ public class Menus extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable);
+        jScrollPane3.setViewportView(jTableComun);
 
-        jPComunes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 300));
+        jPComunes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 380, 300));
 
-        getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        getContentPane().add(jPComunes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jConfig.setBackground(new java.awt.Color(204, 204, 255));
+        jConfig.setForeground(new java.awt.Color(204, 204, 255));
         jConfig.setName("jConfig"); // NOI18N
         jConfig.setPreferredSize(new java.awt.Dimension(1200, 800));
-        jConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPrueba.setText("jConfig");
-        jConfig.add(jPrueba, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 70, 40));
+        jTituloFont.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloFont.setText("Fuentes del sistema");
 
         jComboSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboSizeActionPerformed(evt);
             }
         });
-        jConfig.add(jComboSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 90, -1));
 
         jListaF.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -288,46 +271,112 @@ public class Menus extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jListaF);
 
-        jConfig.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 240, 150));
-
-        jBColorF.setText("Cambiar Color Fondo");
+        jBColorF.setText(" Color Fondo");
         jBColorF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBColorFActionPerformed(evt);
             }
         });
-        jConfig.add(jBColorF, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
-        jBColorB.setText("Cambiar Color Botones");
+        jBColorB.setText("Color Botones");
         jBColorB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBColorBActionPerformed(evt);
             }
         });
-        jConfig.add(jBColorB, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 160, -1));
 
-        jBColorL.setText("Cambiar Color Letra");
+        jBColorL.setText("Color Letra");
         jBColorL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBColorLActionPerformed(evt);
             }
         });
-        jConfig.add(jBColorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 160, -1));
 
-        getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        jTituloSize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloSize.setText("Tamaño fuente");
 
+        jMuestra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMuestra.setText("Muestra");
+
+        jBValidar.setText("Confirmar\n");
+        jBValidar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBValidarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jConfigLayout = new javax.swing.GroupLayout(jConfig);
+        jConfig.setLayout(jConfigLayout);
+        jConfigLayout.setHorizontalGroup(
+            jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jConfigLayout.createSequentialGroup()
+                .addGap(197, 197, 197)
+                .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboSize, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTituloSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jMuestra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBColorF, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jConfigLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                            .addComponent(jTituloFont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jConfigLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jBColorB, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161)
+                        .addComponent(jBColorL, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(185, Short.MAX_VALUE))
+        );
+        jConfigLayout.setVerticalGroup(
+            jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jConfigLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTituloFont, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jTituloSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jConfigLayout.createSequentialGroup()
+                        .addComponent(jComboSize, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(jMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBValidar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(117, 117, 117)
+                .addGroup(jConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBColorL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBColorB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBColorF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(228, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jIdioma.setBackground(new java.awt.Color(204, 204, 255));
+        jIdioma.setForeground(new java.awt.Color(204, 204, 255));
         jIdioma.setPreferredSize(new java.awt.Dimension(1200, 800));
         jIdioma.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jBGuardar.setText("Guardar Documento");
+        jBGuardar.setText("<html><center>Guardar <br>Documento</html>");
+        jBGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBGuardar.setPreferredSize(new java.awt.Dimension(140, 35));
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGuardarActionPerformed(evt);
             }
         });
-        jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 130));
+        jIdioma.add(jBGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, -1, 50));
 
-        getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        jTituloIdioma.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTituloIdioma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTituloIdioma.setText("<html>Importar nuevo idioma<br> a la base de datos</html>");
+        jIdioma.add(jTituloIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 270, 70));
+
+        getContentPane().add(jIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jMenus.setBackground(new java.awt.Color(204, 204, 255));
         jMenus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -336,173 +385,234 @@ public class Menus extends javax.swing.JFrame {
         jMenus.setMinimumSize(new java.awt.Dimension(160, 25));
         jMenus.setPreferredSize(new java.awt.Dimension(180, 50));
 
-        jMTraductor.setBackground(new java.awt.Color(51, 51, 255));
-        jMTraductor.setText("Traductor");
-        jMTraductor.setName("Btn_Traductor"); // NOI18N
-        jMTraductor.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTraductorMenu.setBackground(new java.awt.Color(51, 51, 255));
+        jTraductorMenu.setText("Traductor");
+        jTraductorMenu.setName("Btn_Traductor"); // NOI18N
+        jTraductorMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMTraductorMouseClicked(evt);
+                jTraductorMenuMouseClicked(evt);
             }
         });
-        jMenus.add(jMTraductor);
+        jMenus.add(jTraductorMenu);
 
-        jMComunes.setBackground(new java.awt.Color(51, 51, 255));
-        jMComunes.setText("Comunes");
-        jMComunes.addMouseListener(new java.awt.event.MouseAdapter() {
+        jComunesMenu.setBackground(new java.awt.Color(51, 51, 255));
+        jComunesMenu.setText("Comunes");
+        jComunesMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMComunesMouseClicked(evt);
+                jComunesMenuMouseClicked(evt);
             }
         });
-        jMenus.add(jMComunes);
+        jMenus.add(jComunesMenu);
 
-        jMAdmin.setBackground(new java.awt.Color(51, 51, 255));
-        jMAdmin.setText("Admin");
-        jMAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMAdminMouseClicked(evt);
-            }
-        });
+        jAdminMenu.setBackground(new java.awt.Color(51, 51, 255));
+        jAdminMenu.setText("Admin");
 
-        jMIConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMIConfig.setBackground(new java.awt.Color(51, 51, 255));
-        jMIConfig.setText("Configuración");
-        jMIConfig.addActionListener(new java.awt.event.ActionListener() {
+        jConfigMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jConfigMenu.setBackground(new java.awt.Color(51, 51, 255));
+        jConfigMenu.setText("Configuración");
+        jConfigMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIConfigActionPerformed(evt);
+                jConfigMenuActionPerformed(evt);
             }
         });
-        jMAdmin.add(jMIConfig);
+        jAdminMenu.add(jConfigMenu);
 
-        jMIdioma.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMIdioma.setBackground(new java.awt.Color(51, 51, 255));
-        jMIdioma.setText("Insertar idioma");
-        jMIdioma.setName("jIdioma"); // NOI18N
-        jMIdioma.addActionListener(new java.awt.event.ActionListener() {
+        jIdiomaMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jIdiomaMenu.setBackground(new java.awt.Color(51, 51, 255));
+        jIdiomaMenu.setText("Insertar idioma");
+        jIdiomaMenu.setName("jIdioma"); // NOI18N
+        jIdiomaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIdiomaActionPerformed(evt);
+                jIdiomaMenuActionPerformed(evt);
             }
         });
-        jMAdmin.add(jMIdioma);
+        jAdminMenu.add(jIdiomaMenu);
 
-        jMenus.add(jMAdmin);
+        jMenus.add(jAdminMenu);
 
         setJMenuBar(jMenus);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMTraductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTraductorMouseClicked
+/**
+     * Hacer visible el panel indicado
+     *
+     * @param evt
+     */
+    private void jTraductorMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTraductorMenuMouseClicked
         // Limpia el Panel
         //jMTraductor.removeAll();
         objMet.limpiar();
         objVis.verPanelesMenus(jPTraductor.getName());
 
-    }//GEN-LAST:event_jMTraductorMouseClicked
-
-    private void jMComunesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMComunesMouseClicked
+    }//GEN-LAST:event_jTraductorMenuMouseClicked
+    /**
+     * Hacer visible el panel indicado
+     *
+     * @param evt
+     */
+    private void jComunesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComunesMenuMouseClicked
 
         objMet.limpiar();
         objVis.verPanelesMenus(jPComunes.getName());
-    }//GEN-LAST:event_jMComunesMouseClicked
-
-    private void jMAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMAdminMouseClicked
-
-
-    }//GEN-LAST:event_jMAdminMouseClicked
-
-    private void jBtn_traducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_traducirActionPerformed
+    }//GEN-LAST:event_jComunesMenuMouseClicked
+    /**
+     * Traduce el contenido del area dependiendo de lo seleccionado en el
+     * comboBox
+     *
+     * @param evt
+     */
+    private void jBtraducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtraducirActionPerformed
         Object idioma = jCIdioma.getSelectedItem();
         if (idioma.equals("Morse")) {
-            jTAreaTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
+            jTTraducido.setText(objMet.traduciraMorse(jTTraducir.getText(), vInvertir));
         } else {
             objMet.traductor(idioma, vInvertir);
-
         }
 
-
-    }//GEN-LAST:event_jBtn_traducirActionPerformed
-
-    private void jTBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBInvertirActionPerformed
+    }//GEN-LAST:event_jBtraducirActionPerformed
+    /**
+     * Invierte el sentido de la traducción y llama al metodo botón para validar
+     * el idioma
+     *
+     * @param evt
+     */
+    private void jBInvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInvertirActionPerformed
         objMet.limpiar();
 
-        vInvertir = jTBInvertir.isSelected();
-        this.jBtn_traducirActionPerformed(evt);
+        vInvertir = jBInvertir.isSelected();
+        this.jBtraducirActionPerformed(evt);
 
-    }//GEN-LAST:event_jTBInvertirActionPerformed
-
-    private void jMIConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIConfigActionPerformed
+    }//GEN-LAST:event_jBInvertirActionPerformed
+    /**
+     * Hacer visible el panel indicado
+     *
+     * @param evt
+     */
+    private void jConfigMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfigMenuActionPerformed
         objMet.limpiar();
         objVis.verPanelesMenus(jConfig.getName());
-    }//GEN-LAST:event_jMIConfigActionPerformed
+    }//GEN-LAST:event_jConfigMenuActionPerformed
 
-    //Combo-BOX
+    /**
+     * Permite seleccionar el tamaño de la fuente en el menu Configuración
+     *
+     * @param evt
+     */
     private void jComboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSizeActionPerformed
-        Font f = jPrueba.getFont();
-        objVis.cambiarTexto(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
-        // jPrueba.setFont(new Font(f.getName(), Font.PLAIN, Integer.parseInt(String.valueOf(jComboSize.getSelectedItem()))));
+        Font f = jMuestra.getFont();
+        objVis.modMuestra(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
+
     }//GEN-LAST:event_jComboSizeActionPerformed
 
-    // Lista
+    /**
+     * Permite seleccionar la fuente en el menu Configuración
+     *
+     * @param evt
+     */
     private void jListaFValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaFValueChanged
-        Font f = jPrueba.getFont();
-        objVis.cambiarTexto(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
-        //  jPrueba.setFont(new Font((String) dlm.getElementAt(jListaF.getSelectedIndex()), Font.PLAIN, f.getSize()));
+        Font f = jMuestra.getFont();
+        objVis.modMuestra(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
+
 
     }//GEN-LAST:event_jListaFValueChanged
-
+    /**
+     * Elegir el color del fondo
+     *
+     * @param evt
+     */
     private void jBColorFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorFActionPerformed
         Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorFondo(c);
     }//GEN-LAST:event_jBColorFActionPerformed
-
+    /**
+     * Elegir el color de los botones
+     *
+     * @param evt
+     */
     private void jBColorBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorBActionPerformed
         Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorBotones(c);
     }//GEN-LAST:event_jBColorBActionPerformed
-
+    /**
+     * Elegir el color de las letras
+     *
+     * @param evt
+     */
     private void jBColorLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColorLActionPerformed
         Color c = JColorChooser.showDialog(rootPane, "Elige un color", this.getBackground());
         objVis.cambiarColorLetras(c);
     }//GEN-LAST:event_jBColorLActionPerformed
-
-    private void jMIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIdiomaActionPerformed
+    /**
+     * Hacer visible el panel indicado
+     *
+     * @param evt
+     */
+    private void jIdiomaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIdiomaMenuActionPerformed
         objMet.limpiar();
-        objVis.verPanelesMenus(jMIdioma.getName());
-    }//GEN-LAST:event_jMIdiomaActionPerformed
+        objVis.verPanelesMenus(jIdiomaMenu.getName());
+    }//GEN-LAST:event_jIdiomaMenuActionPerformed
 
+    /**
+     * Permite almacenar un nuevo idioma, para eso usamos archivos cuya
+     * extensión sea ttf
+     *
+     * @param evt
+     */
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         if (seleccionar.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionar.getSelectedFile();
             if (archivo.getName().endsWith("ttf")) {
 
                 File guardar = new File(archivo.getName());
-                System.out.println(archivo.getPath());
-                System.out.println(archivo.getName());
                 objMet.copyFileUsingFileChannels(guardar, archivo.getPath());
             }
 
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
-
+    /**
+     * Selecciona el idioma en el ComboBox y llama al Botón para implementarlo
+     *
+     * @param evt
+     */
     private void jCIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCIdiomaActionPerformed
 
         objMet.limpiar();
-        this.jBtn_traducirActionPerformed(evt);
+        this.jBtraducirActionPerformed(evt);
 
     }//GEN-LAST:event_jCIdiomaActionPerformed
-    
-    // Cambio estado de la pantalla
-    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
-        
-        if(evt.getNewState()==6){
-           
-            
-            jPTraductor.setPreferredSize(evt.getWindow().getSize());
 
-        }     
-        
+    /**
+     * Controla la llamada Maximizar y escala las ventanas al tamaño de la
+     * pantalla
+     *
+     * @param evt
+     */
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+
+        if (evt.getNewState() == 6) {
+
+            jPTraductor.setPreferredSize(evt.getWindow().getSize());
+            jPComunes.setPreferredSize(evt.getWindow().getSize());
+            jConfig.setPreferredSize(evt.getWindow().getSize());
+            jIdioma.setPreferredSize(evt.getWindow().getSize());
+
+        }
+
     }//GEN-LAST:event_formWindowStateChanged
+
+    /**
+     * Cuando te guste la opción de tamaño de la fuente y fuente para el
+     * programa lo implementa en todo
+     *
+     * @param evt
+     */
+    private void jBValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBValidarActionPerformed
+        Font f = jMuestra.getFont();
+        objVis.cambiarTexto(String.valueOf(dlm.getElementAt(jListaF.getSelectedIndex())), f.getSize());
+        //  objVis.cambiarTexto(f.getName(), Integer.parseInt(String.valueOf(jComboSize.getSelectedItem())));
+    }//GEN-LAST:event_jBValidarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,34 +653,40 @@ public class Menus extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JMenu jAdminMenu;
     public static javax.swing.JButton jBColorB;
     public static javax.swing.JButton jBColorF;
     public static javax.swing.JButton jBColorL;
     public static javax.swing.JButton jBGuardar;
-    public static javax.swing.JButton jBtn_traducir;
+    public static javax.swing.JToggleButton jBInvertir;
+    public static javax.swing.JButton jBValidar;
+    public static javax.swing.JButton jBtraducir;
     public static javax.swing.JComboBox<String> jCIdioma;
     public static javax.swing.JComboBox<String> jComboSize;
+    public static javax.swing.JMenu jComunesMenu;
     public static javax.swing.JPanel jConfig;
+    public static javax.swing.JMenuItem jConfigMenu;
     public static javax.swing.JPanel jIdioma;
-    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JMenuItem jIdiomaMenu;
     private javax.swing.JList<String> jListaF;
-    public static javax.swing.JMenu jMAdmin;
-    public static javax.swing.JMenu jMComunes;
-    public static javax.swing.JMenuItem jMIConfig;
-    public static javax.swing.JMenuItem jMIdioma;
-    public static javax.swing.JMenu jMTraductor;
     public static javax.swing.JMenuBar jMenus;
+    public static javax.swing.JLabel jMuestra;
     public static javax.swing.JPanel jPComunes;
     public static javax.swing.JPanel jPTraductor;
-    public static javax.swing.JLabel jPrueba;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    public static javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    public static javax.swing.JTextArea jTAreaTraducido;
-    public static javax.swing.JToggleButton jTBInvertir;
+    public static javax.swing.JTextArea jTTraducido;
     public static javax.swing.JTextArea jTTraducir;
-    public static javax.swing.JTable jTable;
+    public static javax.swing.JTable jTableComun;
+    public static javax.swing.JLabel jTituloComun;
+    public static javax.swing.JLabel jTituloFont;
+    public static javax.swing.JLabel jTituloIdioma;
+    public static javax.swing.JLabel jTituloSize;
+    public static javax.swing.JLabel jTituloTraducido;
+    public static javax.swing.JLabel jTituloTraducir;
+    public static javax.swing.JMenu jTraductorMenu;
     // End of variables declaration//GEN-END:variables
 
     /**

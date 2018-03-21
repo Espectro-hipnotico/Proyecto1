@@ -1,6 +1,7 @@
 
 package com.fichero;
 
+// Clase para definir el Objeto Palabras_Comunes
 public class Palabras_Comunes {
     private String palabra;
     private String codigo;
